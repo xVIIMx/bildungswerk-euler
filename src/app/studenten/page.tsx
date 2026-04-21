@@ -82,10 +82,10 @@ export default function StudentenPage() {
               </p>
 
               <div className="university-hero__actions">
-                <a href="#kontakt" className="btn btn-primary">
+                <a href="#kontakt" className="btn btn-tertiary">
                   Beratungsgespräch vereinbaren
                 </a>
-                <a href="#finish-line" className="btn btn-secondary-dark">
+                <a href="#finish-line" className="btn btn-tertiary">
                   Finish Line entdecken
                 </a>
               </div>
@@ -166,19 +166,29 @@ export default function StudentenPage() {
         <div className="university-section-header">
           <h2>Finish Line</h2>
           <p>
-            Unser spezielles Unterstützungsangebot für Studierende im
-            Drittversuch und in entscheidenden Abschlussphasen.
+            Unser spezielles Pro-Bono-Unterstützungsangebot für ausgewählte
+            Studierende im Drittversuch und in kritischen Abschlussphasen.
           </p>
           <div className="university-section-line"></div>
         </div>
 
         <div className="finish-line__box">
           <div className="finish-line__left">
-            <h3>Wenn ein Modul zur entscheidenden Hürde wird</h3>
+            <h3>Wenn Scheitern weitreichende Folgen hätte</h3>
             <p>
-              Im Drittversuch geht es nicht mehr um gewöhnliche Lernbegleitung,
-              sondern um einen strukturierten, präzisen und verlässlichen
-              Endspurt. Genau dafür wurde Finish Line konzipiert.
+              Finish Line ist kein reguläres Programm, sondern ein begrenztes
+              Pro-Bono- Angebot für Studierende in besonders kritischen
+              Prüfungssituationen.
+            </p>
+            <p>
+              Pro Semester werden nur ein bis zwei Fälle aufgenommen. Die
+              Auswahl erfolgt nicht zufällig, sondern auf Bewerbung und nach
+              individueller Dringlichkeit.
+            </p>
+            <p>
+              Dabei berücksichtigen wir insbesondere, wie weit das Studium
+              bereits fortgeschritten ist und welche Folgen ein Scheitern im
+              Drittversuch konkret hätte.
             </p>
           </div>
 
@@ -211,9 +221,17 @@ export default function StudentenPage() {
             <a href="tel:+4915256075324" className="btn btn-primary">
               Jetzt anrufen
             </a>
+
+            <a
+              href="https://wa.me/4915256075324"
+              className="btn btn-secondary-dark"
+            >
+              WhatsApp schreiben
+            </a>
+
             <a
               href="mailto:info@bildungswerkeuler.de"
-              className="btn btn-secondary-dark"
+              className="btn btn-tertiary"
             >
               E-Mail schreiben
             </a>

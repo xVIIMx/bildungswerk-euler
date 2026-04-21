@@ -82,10 +82,10 @@ export default function SchuelerPage() {
               </p>
 
               <div className="student-hero__actions">
-                <a href="#kontakt" className="btn btn-primary">
+                <a href="#kontakt" className="btn btn-tertiary">
                   Beratungsgespräch vereinbaren
                 </a>
-                <a href="#but" className="btn btn-secondary-dark">
+                <a href="#but" className="btn btn-tertiary">
                   Anspruch auf kostenlose Nachhilfe prüfen
                 </a>
               </div>
@@ -206,9 +206,17 @@ export default function SchuelerPage() {
             <a href="tel:+4915256075324" className="btn btn-primary">
               Jetzt anrufen
             </a>
+
+            <a
+              href="https://wa.me/4915256075324"
+              className="btn btn-secondary-dark"
+            >
+              WhatsApp schreiben
+            </a>
+
             <a
               href="mailto:info@bildungswerkeuler.de"
-              className="btn btn-secondary-dark"
+              className="btn btn-tertiary"
             >
               E-Mail schreiben
             </a>

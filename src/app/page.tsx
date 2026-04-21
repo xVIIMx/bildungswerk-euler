@@ -60,12 +60,11 @@ export default function Home() {
         </div>
       </header>
       {open && (
-        <div className="mobile-menu">
-          <a href="/schueler">Schüler</a>
-          <a href="/studenten">Studenten</a>
-          <a href="/schulen">Für Schulen</a>
-          <a href="/praxis">Praxisqualifizierung</a>
-        </div>
+        <nav className="header__nav">
+          <Link href="/">Bildungswerk Euler</Link>
+          <Link href="/schueler">Schüler</Link>
+          <Link href="/studenten">Studenten</Link>
+        </nav>
       )}
       <section className="hero">
         <div className="hero__overlay">
@@ -79,7 +78,7 @@ export default function Home() {
               </p>
 
               <div className="hero__actions">
-                <a href="#kontakt" className="btn btn-primary">
+                <a href="#kontakt" className="btn btn-tertiary">
                   Beratungsgespräch vereinbaren
                 </a>
               </div>
@@ -108,10 +107,10 @@ export default function Home() {
             </div>
 
             <div className="service-buttons">
-              <a href="/schueler" className="btn btn-secondary">
+              <a href="/schueler" className="btn btn-primary">
                 Schüler
               </a>
-              <a href="/studenten" className="btn btn-secondary">
+              <a href="/studenten" className="btn btn-primary">
                 Studenten
               </a>
             </div>
@@ -128,9 +127,9 @@ export default function Home() {
             </div>
 
             <div className="service-buttons">
-              <a href="/praxis" className="btn btn-secondary">
-                Mehr erfahren
-              </a>
+              <button className="btn btn-disabled" disabled>
+                Startet in Kürze
+              </button>
             </div>
           </div>
 
@@ -144,9 +143,9 @@ export default function Home() {
             </div>
 
             <div className="service-buttons">
-              <a href="/kurse" className="btn btn-secondary">
-                Mehr erfahren
-              </a>
+              <button className="btn btn-disabled" disabled>
+                Startet in Kürze
+              </button>
             </div>
           </div>
         </div>
@@ -213,6 +212,45 @@ export default function Home() {
               Praxisnahe Ausbildungsprogramme zur Qualifizierung, Vorbereitung
               und langfristigen Entwicklung von Fachkräften.
             </p>
+          </div>
+
+          <div className="audience__item">
+            <h3>Selbstlernende &amp; Weiterbildende</h3>
+            <p>
+              Strukturierte Lernprogramme für Menschen, die sich gezielt neue
+              Fähigkeiten aneignen möchten, von Programmierung über Ethical
+              Hacking bis hin zum Einstieg in die Selbstständigkeit.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="student-contact" id="kontakt">
+        <div className="student-contact__box">
+          <h2>Beratungsgespräch vereinbaren</h2>
+          <p>
+            Wir besprechen gemeinsam die Situation, den Förderbedarf und die
+            passende Unterstützung.
+          </p>
+
+          <div className="student-contact__actions">
+            <a href="tel:+4915256075324" className="btn btn-primary">
+              Jetzt anrufen
+            </a>
+
+            <a
+              href="https://wa.me/4915256075324"
+              className="btn btn-secondary-dark"
+            >
+              WhatsApp schreiben
+            </a>
+
+            <a
+              href="mailto:info@bildungswerkeuler.de"
+              className="btn btn-tertiary"
+            >
+              E-Mail schreiben
+            </a>
           </div>
         </div>
       </section>
