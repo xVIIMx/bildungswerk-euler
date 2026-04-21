@@ -9,6 +9,7 @@ export default function Home() {
   const [scrolled, setScrolled] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
   const contactRef = useRef<HTMLDivElement | null>(null);
+  const mobileMenuRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,11 +22,14 @@ export default function Home() {
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (
-        contactRef.current &&
-        !contactRef.current.contains(event.target as Node)
-      ) {
+      const target = event.target as Node;
+
+      if (contactRef.current && !contactRef.current.contains(target)) {
         setContactOpen(false);
+      }
+
+      if (mobileMenuRef.current && !mobileMenuRef.current.contains(target)) {
+        setOpen(false);
       }
     }
 
@@ -55,16 +59,27 @@ export default function Home() {
           <Link href="/studenten">Studenten</Link>
         </nav>
 
-        <div className="header__menu" onClick={() => setOpen(!open)}>
+        <div
+          className="header__menu"
+          onClick={() => {
+            setOpen((prev) => !prev);
+          }}
+        >
           ☰
         </div>
       </header>
       {open && (
-        <nav className="header__nav">
-          <Link href="/">Bildungswerk Euler</Link>
-          <Link href="/schueler">Schüler</Link>
-          <Link href="/studenten">Studenten</Link>
-        </nav>
+        <div className="mobile-menu" ref={mobileMenuRef}>
+          <Link href="/" onClick={() => setOpen(false)}>
+            Bildungswerk Euler
+          </Link>
+          <Link href="/schueler" onClick={() => setOpen(false)}>
+            Schüler
+          </Link>
+          <Link href="/studenten" onClick={() => setOpen(false)}>
+            Studenten
+          </Link>
+        </div>
       )}
       <section className="hero">
         <div className="hero__overlay">

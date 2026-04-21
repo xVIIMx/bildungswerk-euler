@@ -9,6 +9,7 @@ export default function StudentenPage() {
   const [scrolled, setScrolled] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
   const contactRef = useRef<HTMLDivElement | null>(null);
+  const mobileMenuRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,11 +22,14 @@ export default function StudentenPage() {
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (
-        contactRef.current &&
-        !contactRef.current.contains(event.target as Node)
-      ) {
+      const target = event.target as Node;
+
+      if (contactRef.current && !contactRef.current.contains(target)) {
         setContactOpen(false);
+      }
+
+      if (mobileMenuRef.current && !mobileMenuRef.current.contains(target)) {
+        setOpen(false);
       }
     }
 
@@ -60,11 +64,14 @@ export default function StudentenPage() {
         </div>
       </header>
       {open && (
-        <div className="mobile-menu">
-          <a href="/schueler">Schüler</a>
-          <a href="/studenten">Studenten</a>
-          <a href="/schulen">Für Schulen</a>
-          <a href="/praxis">Praxisqualifizierung</a>
+        <div className="mobile-menu" ref={mobileMenuRef}>
+          <Link href="/">Bildungswerk Euler</Link>
+          <Link href="/schueler" onClick={() => setOpen(false)}>
+            Schüler
+          </Link>
+          <Link href="/studenten" onClick={() => setOpen(false)}>
+            Studenten
+          </Link>
         </div>
       )}
       <section className="university-hero">
