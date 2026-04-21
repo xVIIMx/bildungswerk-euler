@@ -1,13 +1,12 @@
 "use client";
 
 import { useEffect } from "react";
-import { useSearchParams } from "next/navigation";
 
 export default function ButArPage() {
-  const searchParams = useSearchParams();
-
   useEffect(() => {
-    const ref = searchParams.get("ref") || "KEINCODE";
+    const params = new URLSearchParams(window.location.search);
+    const ref = params.get("ref") || "KEINCODE";
+
     const webhook =
       "https://script.google.com/macros/s/AKfycbxQ3r6zHZyseqK25H3lBizF2HiPsHIwt5bbfJqFr0JOIkU0ChXjw9HSyrBpbfPBriVXwg/exec";
 
@@ -30,7 +29,7 @@ export default function ButArPage() {
     }
 
     run();
-  }, [searchParams]);
+  }, []);
 
   return (
     <main
