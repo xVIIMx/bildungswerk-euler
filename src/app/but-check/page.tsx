@@ -126,13 +126,14 @@ export default function ButCheckPage() {
       setIsGenerating(true);
 
       const existingPdfBytes = await fetch(
-        "/but-wiesbaden-bestaetigung-der-schule.pdf"
+        `/but-wiesbaden-bestaetigung-der-schule.pdf?v=${Date.now()}`,
+        { cache: "no-store" }
       ).then((res) => res.arrayBuffer());
 
       const pdfDoc = await PDFDocument.load(existingPdfBytes);
       const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
 
-      const firstPage = pdfDoc.getPages()[0];
+      const firstPage = pdfDoc.getPages()[1];
 
       firstPage.drawText(childName, {
         x: 195,
