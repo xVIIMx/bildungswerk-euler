@@ -169,7 +169,11 @@ export default function ButCheckPage() {
       }
 
       const pdfBytes = await pdfDoc.save();
-      const blob = new Blob([pdfBytes], { type: "application/pdf" });
+      const pdfArrayBuffer = pdfBytes.buffer.slice(
+        pdfBytes.byteOffset,
+        pdfBytes.byteOffset + pdfBytes.byteLength
+      ) as ArrayBuffer;
+      const blob = new Blob([pdfArrayBuffer], { type: "application/pdf" });
       const url = URL.createObjectURL(blob);
 
       window.open(url, "_blank", "noopener,noreferrer");
