@@ -7,25 +7,12 @@ export default function ButArPage() {
     const params = new URLSearchParams(window.location.search);
     const ref = params.get("ref") || "KEINCODE";
 
-    const webhook =
-      "https://script.google.com/macros/s/AKfycbxQ3r6zHZyseqK25H3lBizF2HiPsHIwt5bbfJqFr0JOIkU0ChXjw9HSyrBpbfPBriVXwg/exec";
-
     async function run() {
-      try {
-        await fetch(`${webhook}?ref=${encodeURIComponent(ref + "-AR")}`, {
-          method: "GET",
-          mode: "no-cors",
-        });
-      } catch {}
+      const redirectUrl = `/but-check?ref=${encodeURIComponent(
+        ref
+      )}&lang=ar#but-generator`;
 
-      const message =
-        "مرحباً، رأيت الإعلان وأرغب في معرفة ما إذا كان طفلي مؤهلاً للحصول على دروس دعم مجانية.\n\n" +
-        ref;
-
-      const phone = "4915256075324";
-      const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-
-      window.location.replace(whatsappUrl);
+      window.location.replace(redirectUrl);
     }
 
     run();
@@ -48,7 +35,7 @@ export default function ButArPage() {
           لحظة من فضلك…
         </h1>
         <p style={{ fontSize: "18px", lineHeight: 1.8 }}>
-          سيتم تحويلك مباشرة إلى واتساب.
+          سيتم توجيهك مباشرة إلى النموذج.
         </p>
       </div>
     </main>

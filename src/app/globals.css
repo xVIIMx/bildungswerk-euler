@@ -146,9 +146,7 @@
   text-decoration: none;
   font-size: 22px;
   position: relative;
-  transition:
-    color 0.25s ease,
-    font-weight 0.2s ease;
+  transition: color 0.25s ease, font-weight 0.2s ease;
 }
 
 .header--scrolled .header__nav a {
@@ -183,6 +181,10 @@
   font-size: 32px;
   color: white;
   cursor: pointer;
+}
+
+.header--scrolled .header__menu {
+  color: #111;
 }
 
 @media (max-width: 1000px) {
@@ -757,16 +759,57 @@
     font-size: 26px;
   }
 
-  .student-benefits,
-  .student-subjects,
-  .student-but,
+  .student-benefits {
+    padding: 34px 20px 34px;
+  }
+
+  .student-subjects {
+    padding: 28px 20px 34px;
+  }
+
+  .student-but {
+    padding: 28px 20px 34px;
+  }
+
   .student-contact {
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 8px 20px 42px;
   }
 
   .student-section-line {
     width: 100%;
+  }
+
+  .student-section-header p {
+    margin: 0 auto 20px;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .student-section-line {
+    margin: 0 auto 28px;
+  }
+
+  .student-benefits__grid {
+    gap: 18px;
+  }
+
+  .student-benefit-card,
+  .student-note-card,
+  .student-but__content,
+  .student-but__list,
+  .student-contact__box {
+    padding: 28px 18px;
+  }
+
+  .student-subjects__container,
+  .student-but__box {
+    gap: 18px;
+  }
+
+  .student-contact__box p,
+  .student-but__content p,
+  .student-subjects__left p {
+    margin-bottom: 20px;
   }
 }
 
@@ -788,6 +831,48 @@
 
   .student-but__item {
     font-size: 16px;
+  }
+
+  .student-hero,
+  .student-hero__overlay,
+  .student-hero__content {
+    min-height: auto;
+  }
+
+  .student-hero__content {
+    padding: 110px 20px 28px;
+    align-items: flex-start;
+  }
+
+  .student-hero__card {
+    max-width: 100%;
+    width: 100%;
+    padding: 24px 18px;
+  }
+
+  .student-hero__card h1 {
+    font-size: 42px;
+    line-height: 0.98;
+    margin-bottom: 14px;
+  }
+
+  .student-hero__text {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .student-hero__actions {
+    margin-top: 22px;
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .student-hero__actions .btn,
+  .student-contact__actions .btn {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 }
 
@@ -1139,16 +1224,56 @@
     font-size: 26px;
   }
 
-  .university-benefits,
-  .university-focus,
-  .finish-line,
+  .university-benefits {
+    padding: 34px 20px 34px;
+  }
+
+  .university-focus {
+    padding: 28px 20px 34px;
+  }
+
+  .finish-line {
+    padding: 28px 20px 34px;
+  }
+
   .university-contact {
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 8px 20px 42px;
   }
 
   .university-section-line {
     width: 100%;
+  }
+
+  .university-section-header p {
+    margin: 0 auto 20px;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .university-section-line {
+    margin: 0 auto 28px;
+  }
+
+  .university-benefits__grid {
+    gap: 18px;
+  }
+
+  .university-benefit-card,
+  .university-note-card,
+  .finish-line__left,
+  .finish-line__right,
+  .university-contact__box {
+    padding: 28px 18px;
+  }
+
+  .university-focus__container,
+  .finish-line__box {
+    gap: 18px;
+  }
+
+  .university-contact__box p,
+  .university-focus__left p {
+    margin-bottom: 20px;
   }
 }
 
@@ -1167,6 +1292,48 @@
   .university-contact__box p,
   .university-list li {
     font-size: 16px;
+  }
+
+  .university-hero,
+  .university-hero__overlay,
+  .university-hero__content {
+    min-height: auto;
+  }
+
+  .university-hero__content {
+    padding: 110px 20px 28px;
+    align-items: flex-start;
+  }
+
+  .university-hero__card {
+    max-width: 100%;
+    width: 100%;
+    padding: 24px 18px;
+  }
+
+  .university-hero__card h1 {
+    font-size: 42px;
+    line-height: 0.98;
+    margin-bottom: 14px;
+  }
+
+  .university-hero__text {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .university-hero__actions {
+    margin-top: 22px;
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .university-hero__actions .btn,
+  .university-contact__actions .btn {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 }
 
@@ -1303,19 +1470,21 @@
   }
 
   .hero__content {
-    padding: 140px 20px 60px;
+    padding: 110px 20px 28px;
     align-items: flex-start;
   }
 
   .hero__card {
     max-width: 100%;
     width: 100%;
-    padding: 28px 22px;
+    padding: 24px 18px;
+    overflow: hidden;
   }
 
   .hero__card h1 {
     font-size: 56px;
     line-height: 0.95;
+    margin-bottom: 14px;
   }
 
   .hero__text {
@@ -1324,67 +1493,111 @@
   }
 
   .hero__actions {
+    width: 100%;
+    margin-top: 22px;
     flex-direction: column;
     align-items: stretch;
   }
 
   .hero__actions .btn {
     width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .services {
-    padding: 60px 20px 80px;
+    padding: 34px 20px 42px;
+  }
+
+  .services__header h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+
+  .services__header p {
+    margin: 0 auto 20px;
+    font-size: 16px;
+    line-height: 1.6;
   }
 
   .services__line {
     width: 100%;
-    margin: 30px auto 50px;
+    margin: 18px auto 28px;
   }
 
   .services__grid {
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 18px;
   }
 
   .service-card {
     height: auto;
     min-height: unset;
+    padding: 26px 20px;
   }
 
   .about {
-    padding: 20px 20px 70px;
+    padding: 0 20px 28px !important;
+    background: #f3efe6 !important;
   }
 
   .about__container {
-    grid-template-columns: 1fr;
-    gap: 28px;
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+  }
+
+  .about__image {
+    justify-content: flex-start !important;
+    align-items: flex-start !important;
+    width: 100% !important;
+    margin-left: -20px !important;
+  }
+
+  .about__image img {
+    width: auto !important;
+    max-width: 320px !important;
+    display: block !important;
+    margin: 0 !important;
   }
 
   .about__content h2 {
-    font-size: 34px;
+    font-size: 28px;
+    margin-bottom: 12px;
   }
 
   .about__content p {
-    font-size: 17px;
+    font-size: 16px;
     line-height: 1.6;
+    margin-bottom: 14px;
   }
 
   .audience {
-    padding: 0 20px 70px;
+    margin-top: 0 !important;
+    padding: 8px 20px 34px !important;
+    background: #f3efe6 !important;
+  }
+
+  .audience__header h2 {
+    font-size: 28px;
+    margin-bottom: 14px;
   }
 
   .audience__line {
     width: 100%;
-    margin: 0 auto 40px;
+    margin: 0 auto 28px;
   }
 
   .audience__grid {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 26px;
   }
 
   .audience__item h3 {
-    font-size: 26px;
+    font-size: 24px;
+    margin-bottom: 10px;
   }
 
   .audience__item p {
@@ -1393,29 +1606,39 @@
   }
 
   .student-contact {
-    padding: 20px 20px 80px;
+    padding: 8px 20px 42px;
   }
 
   .student-contact__box {
-    padding: 36px 22px;
+    padding: 28px 18px;
+    overflow: hidden;
   }
 
   .student-contact__box h2 {
-    font-size: 34px;
+    font-size: 28px;
+    margin-bottom: 12px;
   }
 
   .student-contact__box p {
     font-size: 16px;
     line-height: 1.6;
+    margin-bottom: 20px;
   }
 
   .student-contact__actions {
+    width: 100%;
     flex-direction: column;
     align-items: stretch;
   }
 
   .student-contact__actions .btn {
     width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .footer {
+    padding: 22px 20px 90px;
   }
 
   .header {
@@ -1435,81 +1658,416 @@
 
   .mobile-menu {
     position: fixed;
-    top: 80px;
+    top: 72px;
     right: 20px;
     left: 20px;
-
     background: rgba(10, 10, 10, 0.97);
     padding: 24px;
     border-radius: 12px;
-
     display: flex;
     flex-direction: column;
     gap: 18px;
-
-    z-index: 4000; /* 🔥 höher als alles */
+    z-index: 4000;
   }
 }
 
-@media (max-width: 900px) {
-  .hero__card,
-  .student-contact__box {
-    overflow: hidden;
+/* =========================
+   BUT CHECK PAGE
+========================= */
+
+.but-page {
+  background: #f3efe6;
+}
+
+.but-hero {
+  min-height: 100vh;
+  background-image: url("/bildungswerk-euler-schueler-hero.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.but-hero__overlay {
+  min-height: 100vh;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.72) 0%,
+    rgba(0, 0, 0, 0.5) 42%,
+    rgba(0, 0, 0, 0.18) 72%,
+    rgba(0, 0, 0, 0.02) 100%
+  );
+}
+
+.but-hero__content {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 64px;
+}
+
+.but-hero__card {
+  max-width: 660px;
+  background: rgba(10, 10, 10, 0.84);
+  color: #fff;
+  padding: 40px;
+  backdrop-filter: blur(6px);
+}
+
+.but-hero__eyebrow {
+  margin: 0 0 14px;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.82;
+}
+
+.but-hero__card h1 {
+  margin: 0 0 20px;
+  font-size: clamp(44px, 6vw, 82px);
+  line-height: 0.94;
+  letter-spacing: -0.02em;
+}
+
+.but-hero__text {
+  margin: 0;
+  font-size: 19px;
+  line-height: 1.75;
+  opacity: 0.96;
+}
+
+.but-hero__actions {
+  margin-top: 32px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.but-info,
+.but-benefits,
+.but-generator {
+  background: #f3efe6;
+}
+
+.but-info {
+  padding: 90px 40px 70px;
+}
+
+.but-section-header {
+  text-align: center;
+}
+
+.but-section-header h2 {
+  font-size: 44px;
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+
+.but-section-header p {
+  max-width: 760px;
+  margin: 0 auto 36px;
+  font-size: 18px;
+  line-height: 1.7;
+  color: #555;
+}
+
+.but-section-line {
+  width: 62%;
+  height: 1px;
+  background: #b7b1a8;
+  margin: 0 auto 60px;
+}
+
+.but-steps {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.but-step-card {
+  background: rgba(255, 255, 255, 0.42);
+  border: 1px solid #ddd5ca;
+  padding: 32px 26px;
+}
+
+.but-step-card h3 {
+  font-size: 28px;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.but-step-card p {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.7;
+  color: #555;
+}
+
+.but-benefits {
+  padding: 20px 40px 70px;
+}
+
+.but-benefits__container {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 32px;
+  align-items: stretch;
+}
+
+.but-benefits__left,
+.but-note-card {
+  background: rgba(255, 255, 255, 0.42);
+  border: 1px solid #ddd5ca;
+  padding: 36px 32px;
+}
+
+.but-benefits__left h2,
+.but-note-card h3 {
+  font-size: 36px;
+  font-weight: 500;
+  margin-bottom: 18px;
+}
+
+.but-benefits__left p,
+.but-note-card p {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.75;
+  color: #555;
+}
+
+.but-list {
+  margin: 24px 0 0;
+  padding-left: 22px;
+}
+
+.but-list li {
+  font-size: 18px;
+  line-height: 1.8;
+  color: #222;
+}
+
+.but-generator {
+  padding: 20px 40px 100px;
+}
+
+.but-generator__box {
+  max-width: 920px;
+  width: 100%;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.42);
+  border: 1px solid #ddd5ca;
+  padding: 48px 36px;
+  box-sizing: border-box;
+}
+
+.but-generator__eyebrow {
+  margin: 0 0 10px;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #555;
+}
+
+.but-generator__box h2 {
+  margin: 0 0 14px;
+  font-size: 42px;
+  font-weight: 500;
+  line-height: 1.05;
+  color: #111;
+}
+
+.but-generator__intro {
+  margin: 0 0 28px;
+  font-size: 17px;
+  line-height: 1.7;
+  color: #555;
+}
+
+.but-generator__top {
+  display: grid;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.but-field {
+  display: grid;
+  gap: 8px;
+}
+
+.but-field span {
+  font-size: 15px;
+  font-weight: 600;
+  color: #111;
+}
+
+.but-eligibility {
+  display: grid;
+  gap: 10px;
+}
+
+.but-eligibility__title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #111;
+}
+
+.but-eligibility__text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #666;
+}
+
+.but-benefit-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.but-fields {
+  display: grid;
+  gap: 18px;
+}
+
+.but-fields input,
+.but-fields select,
+.but-generator__top select,
+.but-benefit-grid button {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+.but-generator__actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+
+@media (max-width: 1100px) {
+  .but-steps {
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  .hero__actions,
-  .student-contact__actions {
+  .but-benefits__container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .but-info {
+    padding: 34px 20px 34px;
+  }
+
+  .but-benefits {
+    padding: 8px 20px 34px;
+  }
+
+  .but-generator {
+    padding: 8px 16px 42px;
+  }
+
+  .but-section-header h2,
+  .but-benefits__left h2,
+  .but-note-card h3,
+  .but-generator__box h2 {
+    font-size: 34px;
+  }
+
+  .but-section-header p {
+    margin: 0 auto 20px;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .but-section-line {
     width: 100%;
+    margin: 0 auto 28px;
   }
 
-  .hero__actions .btn,
-  .student-contact__actions .btn {
+  .but-steps {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .but-step-card,
+  .but-benefits__left,
+  .but-note-card,
+  .but-generator__box {
+    padding: 24px 16px;
+  }
+
+  .but-benefits__container {
+    gap: 18px;
+  }
+
+  .but-step-card h3 {
+    font-size: 26px;
+  }
+
+  .but-step-card p,
+  .but-benefits__left p,
+  .but-note-card p,
+  .but-list li,
+  .but-generator__intro {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .but-benefit-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .but-generator__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+@media (max-width: 640px) {
+  .but-hero,
+  .but-hero__overlay,
+  .but-hero__content {
+    min-height: auto;
+  }
+
+  .but-hero__content {
+    padding: 110px 20px 28px;
+    align-items: flex-start;
+  }
+
+  .but-hero__card {
+    max-width: 100%;
+    width: 100%;
+    padding: 24px 18px;
+  }
+
+  .but-hero__card h1 {
+    font-size: 42px;
+    line-height: 0.98;
+    margin-bottom: 14px;
+  }
+
+  .but-hero__text {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .but-hero__actions {
+    margin-top: 22px;
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .but-hero__actions .btn,
+  .but-generator__actions > * {
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
-  }
-}
-
-@media (max-width: 900px) {
-  .about {
-    padding: 0 20px 40px !important;
-    background: #f3efe6 !important;
-  }
-
-  .about__container {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 16px !important;
-    max-width: 100% !important;
-    margin: 0 auto !important;
-  }
-
-  .about__image {
-    justify-content: flex-start !important;
-    align-items: flex-start !important;
-    width: 100% !important;
-  }
-
-  .about__image img {
-    width: auto !important;
-    max-width: 320px !important;
-    display: block !important;
-    margin: 0 !important;
-  }
-
-  .audience {
-    margin-top: 0 !important;
-    padding: 10px 20px 70px !important;
-    background: #f3efe6 !important;
-  }
-}
-
-@media (max-width: 900px) {
-  .about__image {
-    margin-left: -20px; /* zieht es aus dem Padding raus */
-  }
-
-  .about__image img {
-    max-width: 320px;
   }
 }

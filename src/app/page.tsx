@@ -43,7 +43,7 @@ export default function Home() {
   return (
     <main>
       <header className={`header ${scrolled ? "header--scrolled" : ""}`}>
-        <div className="header__logo">
+        <Link href="/" className="header__logo">
           <Image
             src="/logo.png"
             alt="Bildungswerk Euler Logo"
@@ -51,7 +51,7 @@ export default function Home() {
             height={60}
             unoptimized
           />
-        </div>
+        </Link>
 
         <nav className="header__nav">
           <Link href="/">Bildungswerk Euler</Link>

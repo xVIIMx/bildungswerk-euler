@@ -7,25 +7,12 @@ export default function ButDePage() {
     const params = new URLSearchParams(window.location.search);
     const ref = params.get("ref") || "KEINCODE";
 
-    const webhook =
-      "https://script.google.com/macros/s/AKfycbxQ3r6zHZyseqK25H3lBizF2HiPsHIwt5bbfJqFr0JOIkU0ChXjw9HSyrBpbfPBriVXwg/exec";
-
     async function run() {
-      try {
-        await fetch(`${webhook}?ref=${encodeURIComponent(ref + "-DE")}`, {
-          method: "GET",
-          mode: "no-cors",
-        });
-      } catch {}
+      const redirectUrl = `/but-check?ref=${encodeURIComponent(
+        ref
+      )}&lang=de#but-generator`;
 
-      const message =
-        "Hallo, ich habe Ihren Flyer gesehen und möchte prüfen, ob mein Kind Anspruch auf kostenlose Nachhilfe hat.\n\n" +
-        ref;
-
-      const phone = "4915256075324";
-      const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-
-      window.location.replace(whatsappUrl);
+      window.location.replace(redirectUrl);
     }
 
     run();
@@ -47,7 +34,7 @@ export default function ButDePage() {
           Einen Moment bitte …
         </h1>
         <p style={{ fontSize: "18px", lineHeight: 1.6 }}>
-          Sie werden direkt zu WhatsApp weitergeleitet.
+          Sie werden direkt zum Formular geführt.
         </p>
       </div>
     </main>
