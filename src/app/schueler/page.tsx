@@ -49,6 +49,11 @@ export default function SchuelerPage() {
   }, []);
 
   const formEnabled = !!selectedBenefit;
+  const whatsappClaimMessage =
+    "Hallo, ich möchte meinen Anspruch auf kostenlose Nachhilfe prüfen lassen.";
+  const whatsappClaimUrl = `https://api.whatsapp.com/send?phone=4915256075324&text=${encodeURIComponent(
+    whatsappClaimMessage
+  )}`;
 
   function trackButEvent(params: {
     ref: string;
@@ -366,7 +371,7 @@ export default function SchuelerPage() {
             </a>
 
             <a
-              href="https://wa.me/4915256075324"
+              href={whatsappClaimUrl}
               onClick={() => {
                 trackButEvent({
                   ref: "SCHUELER-DE",
@@ -519,7 +524,7 @@ export default function SchuelerPage() {
             </button>
 
             <a
-              href="https://wa.me/4915256075324"
+              href={whatsappClaimUrl}
               onClick={() => {
                 trackButEvent({
                   ref: "SCHUELER-DE",

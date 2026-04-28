@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function StudentenPage() {
   const [open, setOpen] = useState(false);
@@ -60,7 +60,7 @@ export default function StudentenPage() {
           <Link href="/but-check">BuT</Link>
         </nav>
 
-        <div className="header__menu" onClick={() => setOpen(!open)}>
+        <div className="header__menu" onClick={() => setOpen((prev) => !prev)}>
           ☰
         </div>
       </header>
@@ -254,15 +254,15 @@ export default function StudentenPage() {
         <p>Bildungswerk Euler</p>
         <p>Nachhilfe · Ausbildungsprogramme · Kurse</p>
         <p className="footer__legal">
-          © 2026 Bildungswerk Euler · <a href="/impressum">Impressum</a> ·{" "}
-          <a href="/datenschutz">Datenschutz</a>
+          © 2026 Bildungswerk Euler · <Link href="/impressum">Impressum</Link> ·{" "}
+          <Link href="/datenschutz">Datenschutz</Link>
         </p>
       </footer>
 
       <div className="floating-contact" ref={contactRef}>
         <button
           className="floating-contact__button"
-          onClick={() => setContactOpen(!contactOpen)}
+          onClick={() => setContactOpen((prev) => !prev)}
         >
           Jetzt beraten lassen!
         </button>

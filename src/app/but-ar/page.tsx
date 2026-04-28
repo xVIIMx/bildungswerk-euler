@@ -6,16 +6,11 @@ export default function ButArPage() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const ref = params.get("ref") || "KEINCODE";
+    const redirectUrl = `/but-check?ref=${encodeURIComponent(
+      ref
+    )}&lang=ar#but-generator`;
 
-    async function run() {
-      const redirectUrl = `/but-check?ref=${encodeURIComponent(
-        ref
-      )}&lang=ar#but-generator`;
-
-      window.location.replace(redirectUrl);
-    }
-
-    run();
+    window.location.replace(redirectUrl);
   }, []);
 
   return (

@@ -24,6 +24,7 @@ export default function ImpressumPage() {
           <Link href="/">Bildungswerk Euler</Link>
           <Link href="/schueler">Schüler</Link>
           <Link href="/studenten">Studenten</Link>
+          <Link href="/but-check">BuT</Link>
         </nav>
 
         <div className="header__menu" onClick={() => setOpen(!open)}>
@@ -41,6 +42,9 @@ export default function ImpressumPage() {
           </Link>
           <Link href="/studenten" onClick={() => setOpen(false)}>
             Studenten
+          </Link>
+          <Link href="/but-check" onClick={() => setOpen(false)}>
+            BuT
           </Link>
         </div>
       )}

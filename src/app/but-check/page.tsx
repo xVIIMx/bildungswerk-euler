@@ -59,6 +59,12 @@ export default function ButCheckPage() {
 
   const formEnabled = !!selectedBenefit;
   const isArabic = languageCode === "ar";
+  const whatsappClaimMessage = isArabic
+    ? "مرحباً، أريد فحص إمكانية الحصول على دروس دعم مجانية."
+    : "Hallo, ich möchte meinen Anspruch auf kostenlose Nachhilfe prüfen lassen.";
+  const whatsappClaimUrl = `https://api.whatsapp.com/send?phone=4915256075324&text=${encodeURIComponent(
+    whatsappClaimMessage
+  )}`;
 
   function trackButEvent(params: {
     ref: string;
@@ -284,10 +290,7 @@ export default function ButCheckPage() {
                     ? "تحضير النموذج الآن"
                     : "Jetzt Formular vorbereiten"}
                 </a>
-                <a
-                  href="https://wa.me/4915256075324"
-                  className="btn btn-secondary-dark"
-                >
+                <a href={whatsappClaimUrl} className="btn btn-secondary-dark">
                   {isArabic ? "فتح واتساب" : "WhatsApp öffnen"}
                 </a>
               </div>
@@ -378,7 +381,7 @@ export default function ButCheckPage() {
             </a>
 
             <a
-              href="https://wa.me/4915256075324"
+              href={whatsappClaimUrl}
               onClick={() => {
                 const normalizedLang = languageCode.toUpperCase();
                 trackButEvent({
@@ -559,7 +562,7 @@ export default function ButCheckPage() {
             </button>
 
             <a
-              href="https://wa.me/4915256075324"
+              href={whatsappClaimUrl}
               onClick={() => {
                 const normalizedLang = languageCode.toUpperCase();
                 trackButEvent({
