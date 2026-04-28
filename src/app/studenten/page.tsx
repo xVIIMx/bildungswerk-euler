@@ -2,12 +2,20 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { type FormEvent, useEffect, useRef, useState } from "react";
 
 export default function StudentenPage() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
+  const [finishLineName, setFinishLineName] = useState("");
+  const [finishLineUniversity, setFinishLineUniversity] = useState("");
+  const [finishLineCourse, setFinishLineCourse] = useState("");
+  const [finishLineSubject, setFinishLineSubject] = useState("");
+  const [finishLineReason, setFinishLineReason] = useState("");
+  const [finishLineStatus, setFinishLineStatus] = useState<
+    "idle" | "sending" | "success" | "error"
+  >("idle");
   const contactRef = useRef<HTMLDivElement | null>(null);
   const mobileMenuRef = useRef<HTMLDivElement | null>(null);
 
@@ -40,6 +48,42 @@ export default function StudentenPage() {
     };
   }, []);
 
+  async function handleFinishLineApplication(
+    event: FormEvent<HTMLFormElement>
+  ) {
+    event.preventDefault();
+    setFinishLineStatus("sending");
+
+    try {
+      const response = await fetch("/api/finish-line-application", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: finishLineName,
+          university: finishLineUniversity,
+          course: finishLineCourse,
+          subject: finishLineSubject,
+          reason: finishLineReason,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Bewerbung konnte nicht gesendet werden.");
+      }
+
+      setFinishLineStatus("success");
+      setFinishLineName("");
+      setFinishLineUniversity("");
+      setFinishLineCourse("");
+      setFinishLineSubject("");
+      setFinishLineReason("");
+    } catch {
+      setFinishLineStatus("error");
+    }
+  }
+
   return (
     <main>
       <header className={`header ${scrolled ? "header--scrolled" : ""}`}>
@@ -56,8 +100,10 @@ export default function StudentenPage() {
         <nav className="header__nav">
           <Link href="/">Bildungswerk Euler</Link>
           <Link href="/schueler">Schüler</Link>
-          <Link href="/studenten">Studenten</Link>
           <Link href="/but-check">BuT</Link>
+          <Link href="/studenten">Studenten</Link>
+          <Link href="/weiterbildung">Weiterbildung</Link>
+          <Link href="/kurse">Kurse</Link>
         </nav>
 
         <div className="header__menu" onClick={() => setOpen((prev) => !prev)}>
@@ -66,15 +112,23 @@ export default function StudentenPage() {
       </header>
       {open && (
         <div className="mobile-menu" ref={mobileMenuRef}>
-          <Link href="/">Bildungswerk Euler</Link>
+          <Link href="/" onClick={() => setOpen(false)}>
+            Bildungswerk Euler
+          </Link>
           <Link href="/schueler" onClick={() => setOpen(false)}>
             Schüler
+          </Link>
+          <Link href="/but-check" onClick={() => setOpen(false)}>
+            BuT
           </Link>
           <Link href="/studenten" onClick={() => setOpen(false)}>
             Studenten
           </Link>
-          <Link href="/but-check" onClick={() => setOpen(false)}>
-            BuT
+          <Link href="/weiterbildung" onClick={() => setOpen(false)}>
+            Weiterbildung
+          </Link>
+          <Link href="/kurse" onClick={() => setOpen(false)}>
+            Kurse
           </Link>
         </div>
       )}
@@ -219,6 +273,100 @@ export default function StudentenPage() {
           </div>
         </div>
       </section>
+
+      <section className="university-contact" id="finish-line-bewerbung">
+        <div className="university-contact__box">
+          <h2>Für Finish Line bewerben</h2>
+          <p>
+            Beschreiben Sie kurz Ihre Situation. Wir lesen jede Bewerbung
+            sorgfältig und melden uns, wenn eine Aufnahme in das Projekt möglich
+            ist.
+          </p>
+
+          <form className="but-fields" onSubmit={handleFinishLineApplication}>
+            <label className="but-field">
+              <span>Name</span>
+              <input
+                type="text"
+                value={finishLineName}
+                onChange={(event) => setFinishLineName(event.target.value)}
+                required
+              />
+            </label>
+
+            <label className="but-field">
+              <span>Hochschule / Universität</span>
+              <input
+                type="text"
+                value={finishLineUniversity}
+                onChange={(event) =>
+                  setFinishLineUniversity(event.target.value)
+                }
+                required
+              />
+            </label>
+
+            <label className="but-field">
+              <span>Studiengang</span>
+              <input
+                type="text"
+                value={finishLineCourse}
+                onChange={(event) => setFinishLineCourse(event.target.value)}
+                required
+              />
+            </label>
+
+            <label className="but-field">
+              <span>Fach / Modul im Drittversuch</span>
+              <input
+                type="text"
+                value={finishLineSubject}
+                onChange={(event) => setFinishLineSubject(event.target.value)}
+                required
+              />
+            </label>
+
+            <label className="but-field">
+              <span>
+                Warum sollten Sie für das Finish Line Projekt ausgewählt werden?
+              </span>
+              <textarea
+                value={finishLineReason}
+                onChange={(event) => setFinishLineReason(event.target.value)}
+                rows={8}
+                required
+              />
+            </label>
+
+            <div className="but-generator__actions">
+              <button
+                type="submit"
+                className="btn btn-tertiary but-action-button"
+                disabled={finishLineStatus === "sending"}
+              >
+                {finishLineStatus === "sending"
+                  ? "Bewerbung wird gesendet..."
+                  : "Bewerbung absenden"}
+              </button>
+            </div>
+
+            {finishLineStatus === "success" && (
+              <p className="but-eligibility__text">
+                Vielen Dank. Ihre Bewerbung wurde erfolgreich gesendet.
+              </p>
+            )}
+
+            {finishLineStatus === "error" && (
+              <p className="but-eligibility__text">
+                Die Bewerbung konnte gerade nicht gesendet werden. Bitte
+                versuchen Sie es später erneut oder schreiben Sie direkt an
+                info@bildungswerkeuler.de.
+              </p>
+            )}
+          </form>
+        </div>
+      </section>
+
       <section className="university-contact" id="kontakt">
         <div className="university-contact__box">
           <h2>Beratung für Studierende anfragen</h2>

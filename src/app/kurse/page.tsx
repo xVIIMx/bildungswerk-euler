@@ -64,10 +64,10 @@ export default function KursePage() {
         <nav className="header__nav">
           <Link href="/">Bildungswerk Euler</Link>
           <Link href="/schueler">Schüler</Link>
+          <Link href="/but-check">BuT</Link>
           <Link href="/studenten">Studenten</Link>
           <Link href="/weiterbildung">Weiterbildung</Link>
           <Link href="/kurse">Kurse</Link>
-          <Link href="/but-check">BuT</Link>
         </nav>
 
         <div
@@ -88,6 +88,9 @@ export default function KursePage() {
           <Link href="/schueler" onClick={() => setOpen(false)}>
             Schüler
           </Link>
+          <Link href="/but-check" onClick={() => setOpen(false)}>
+            BuT
+          </Link>
           <Link href="/studenten" onClick={() => setOpen(false)}>
             Studenten
           </Link>
@@ -96,9 +99,6 @@ export default function KursePage() {
           </Link>
           <Link href="/kurse" onClick={() => setOpen(false)}>
             Kurse
-          </Link>
-          <Link href="/but-check" onClick={() => setOpen(false)}>
-            BuT
           </Link>
         </div>
       )}
@@ -143,9 +143,8 @@ export default function KursePage() {
           <div className="university-benefit-card">
             <h3>Für Unternehmen</h3>
             <p>
-              Schulungen für Mitarbeitende, zum Beispiel Office, Excel,
-              digitale Arbeitsprozesse, KI im Büro und interne
-              Weiterbildungsformate.
+              Schulungen für Mitarbeitende, zum Beispiel Office, Excel, digitale
+              Arbeitsprozesse, KI im Büro und interne Weiterbildungsformate.
             </p>
           </div>
 
@@ -186,7 +185,9 @@ export default function KursePage() {
             <ul className="university-list">
               <li>Office- und Excel-Kurse für Firmen und Einzelpersonen</li>
               <li>Bewerbungstraining und berufliche Orientierung</li>
-              <li>Coding-Kurse und Coding-Camps für Jugendliche und Erwachsene</li>
+              <li>
+                Coding-Kurse und Coding-Camps für Jugendliche und Erwachsene
+              </li>
               <li>Digitale Grundbildung und Medienkompetenz</li>
               <li>Individuelle Kurskonzepte für Gruppen und Projekte</li>
             </ul>

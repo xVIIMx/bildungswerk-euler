@@ -36,7 +36,6 @@ export default function DatenschutzPage() {
 
       {open && (
         <div className="mobile-menu">
-          {" "}
           <Link href="/" onClick={() => setOpen(false)}>
             Bildungswerk Euler
           </Link>
