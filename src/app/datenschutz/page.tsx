@@ -24,6 +24,7 @@ export default function DatenschutzPage() {
           <Link href="/">Bildungswerk Euler</Link>
           <Link href="/schueler">Schüler</Link>
           <Link href="/studenten">Studenten</Link>
+          <Link href="/but-check">BuT</Link>
         </nav>
 
         <div className="header__menu" onClick={() => setOpen(!open)}>
@@ -41,6 +42,9 @@ export default function DatenschutzPage() {
           </Link>
           <Link href="/studenten" onClick={() => setOpen(false)}>
             Studenten
+          </Link>
+          <Link href="/but-check" onClick={() => setOpen(false)}>
+            BuT
           </Link>
         </div>
       )}
@@ -71,10 +75,11 @@ export default function DatenschutzPage() {
 
           <h2>2. Hosting</h2>
           <p>
-            Unsere Website wird bei einem externen Dienstleister (All-Inkl)
-            gehostet. Beim Aufruf der Website werden automatisch Informationen
-            durch den Browser Ihres Endgeräts an den Server unseres Hosters
-            übermittelt und temporär in sogenannten Server-Logfiles gespeichert.
+            Unsere Website wird über Vercel gehostet. Beim Aufruf der Website
+            werden automatisch Informationen durch den Browser Ihres Endgeräts
+            an die Server des Hosting-Anbieters übermittelt und temporär in
+            sogenannten Server-Logfiles gespeichert. Die Domainverwaltung und
+            E-Mail-Dienste können ergänzend über All-Inkl betrieben werden.
           </p>
 
           <h2>3. Erhebung und Speicherung personenbezogener Daten</h2>
@@ -113,7 +118,55 @@ export default function DatenschutzPage() {
             gespeichert.
           </p>
 
-          <h2>7. Ihre Rechte</h2>
+          <h2>7. BuT-Formular-Generator / Lernförderungsanfrage</h2>
+          <p>
+            Auf unserer Website stellen wir einen Formular-Generator zur
+            Vorbereitung einer Anfrage auf Lernförderung im Rahmen von Bildung
+            und Teilhabe bereit. Wenn Sie diesen Generator nutzen, können je
+            nach Eingabe insbesondere folgende Daten verarbeitet werden:
+          </p>
+          <ul>
+            <li>Name des Kindes</li>
+            <li>Geburtsdatum des Kindes</li>
+            <li>Jahrgangsstufe bzw. Klasse</li>
+            <li>Aktenzeichen, sofern angegeben</li>
+            <li>
+              ausgewählte Leistungsart, z. B. Bürgergeld, Wohngeld,
+              Kinderzuschlag oder Sozialhilfe
+            </li>
+            <li>Ref-Code des verwendeten Flyers oder QR-Codes</li>
+          </ul>
+          <p>
+            Diese Daten werden ausschließlich verwendet, um Ihre Anfrage zur
+            Lernförderung vorzubereiten, das passende Formular vorauszufüllen
+            und den weiteren Ablauf mit Ihnen zu begleiten. Die Verarbeitung
+            erfolgt zur Bearbeitung Ihrer Anfrage und zur Durchführung
+            vorvertraglicher bzw. organisatorischer Maßnahmen.
+          </p>
+          <p>
+            Zur internen Zuordnung und Bearbeitung von Anfragen nutzen wir
+            Google Apps Script und Google Sheets. Dabei können die von Ihnen
+            eingegebenen Daten sowie der jeweilige Ref-Code in einer internen
+            Tabelle gespeichert werden. Die Daten werden nicht öffentlich
+            zugänglich gemacht und nur für die Bearbeitung der Anfrage genutzt.
+          </p>
+          <p>
+            Nach Beendigung der Anfrage zur Lernförderung werden die hierfür
+            gespeicherten personenbezogenen Daten gelöscht, soweit keine
+            gesetzlichen Aufbewahrungspflichten oder berechtigten Gründe für
+            eine weitere Speicherung bestehen.
+          </p>
+
+          <h2>8. Ref-Codes und QR-Codes</h2>
+          <p>
+            Einige Flyer und QR-Codes enthalten technische Ref-Codes. Diese
+            dienen dazu, nachvollziehen zu können, über welchen Flyer oder
+            welchen Kooperationspartner eine Anfrage erfolgt ist. Der Ref-Code
+            wird nicht öffentlich angezeigt und dient ausschließlich der
+            internen Zuordnung, Auswertung und Bearbeitung der Anfrage.
+          </p>
+
+          <h2>9. Ihre Rechte</h2>
           <p>Sie haben das Recht:</p>
           <ul>
             <li>auf Auskunft über Ihre gespeicherten Daten</li>
@@ -123,13 +176,13 @@ export default function DatenschutzPage() {
             <li>auf Datenübertragbarkeit</li>
           </ul>
 
-          <h2>8. Widerspruchsrecht</h2>
+          <h2>10. Widerspruchsrecht</h2>
           <p>
             Sie haben das Recht, der Verarbeitung Ihrer personenbezogenen Daten
             jederzeit zu widersprechen.
           </p>
 
-          <h2>9. Aktualität</h2>
+          <h2>11. Aktualität</h2>
           <p>Diese Datenschutzerklärung ist aktuell gültig.</p>
         </div>
       </section>

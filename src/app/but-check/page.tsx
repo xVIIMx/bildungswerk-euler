@@ -58,6 +58,7 @@ export default function ButCheckPage() {
   }, [district]);
 
   const formEnabled = !!selectedBenefit;
+  const isArabic = languageCode === "ar";
 
   function trackButEvent(params: {
     ref: string;
@@ -95,19 +96,27 @@ export default function ButCheckPage() {
   async function generatePdf() {
     if (!selectedBenefit) {
       alert(
-        "Bitte wählen Sie zuerst aus, über welche Leistung Bildung und Teilhabe beantragt wird."
+        isArabic
+          ? "يرجى أولاً اختيار نوع المساعدة التي تحصلون عليها."
+          : "Bitte wählen Sie zuerst aus, über welche Leistung Bildung und Teilhabe beantragt wird."
       );
       return;
     }
 
     if (!childName || !birthDate || !schoolClass) {
-      alert("Bitte füllen Sie alle Pflichtfelder aus.");
+      alert(
+        isArabic
+          ? "يرجى تعبئة جميع الحقول المطلوبة."
+          : "Bitte füllen Sie alle Pflichtfelder aus."
+      );
       return;
     }
 
     if (district !== "wiesbaden") {
       alert(
-        `Für ${districtLabel} wird das Formular in Kürze freigeschaltet. Aktuell ist nur Wiesbaden verfügbar.`
+        isArabic
+          ? `سيتم تفعيل نموذج ${districtLabel} قريباً. حالياً النموذج متاح فقط لمدينة Wiesbaden.`
+          : `Für ${districtLabel} wird das Formular in Kürze freigeschaltet. Aktuell ist nur Wiesbaden verfügbar.`
       );
       return;
     }
@@ -125,10 +134,14 @@ export default function ButCheckPage() {
     try {
       setIsGenerating(true);
 
-      const existingPdfBytes = await fetch(
-        `/but-wiesbaden-bestaetigung-der-schule.pdf?v=${Date.now()}`,
-        { cache: "no-store" }
-      ).then((res) => res.arrayBuffer());
+      const pdfTemplate =
+        languageCode === "ar"
+          ? "/but-wiesbaden-bestaetigung-der-schule-ar.pdf"
+          : "/but-wiesbaden-bestaetigung-der-schule.pdf";
+
+      const existingPdfBytes = await fetch(`${pdfTemplate}?v=${Date.now()}`, {
+        cache: "no-store",
+      }).then((res) => res.arrayBuffer());
 
       const pdfDoc = await PDFDocument.load(existingPdfBytes);
       const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
@@ -184,15 +197,26 @@ export default function ButCheckPage() {
       }, 60000);
     } catch (error) {
       console.error(error);
-      alert("Beim Erstellen der PDF ist ein Fehler aufgetreten.");
+      alert(
+        isArabic
+          ? "حدث خطأ أثناء إنشاء ملف PDF."
+          : "Beim Erstellen der PDF ist ein Fehler aufgetreten."
+      );
     } finally {
       setIsGenerating(false);
     }
   }
 
   return (
-    <main className="but-page">
-      <header className={`header ${scrolled ? "header--scrolled" : ""}`}>
+    <main
+      className="but-page"
+      dir={isArabic ? "rtl" : "ltr"}
+      lang={isArabic ? "ar" : "de"}
+    >
+      <header
+        className={`header ${scrolled ? "header--scrolled" : ""}`}
+        dir="ltr"
+      >
         <Link href="/" className="header__logo">
           <Image
             src="/logo.png"
@@ -207,6 +231,7 @@ export default function ButCheckPage() {
           <Link href="/">Bildungswerk Euler</Link>
           <Link href="/schueler">Schüler</Link>
           <Link href="/studenten">Studenten</Link>
+          <Link href="/but-check">BuT</Link>
         </nav>
 
         <div
@@ -220,7 +245,7 @@ export default function ButCheckPage() {
       </header>
 
       {open && (
-        <div className="mobile-menu" ref={mobileMenuRef}>
+        <div className="mobile-menu" ref={mobileMenuRef} dir="ltr">
           <Link href="/" onClick={() => setOpen(false)}>
             Bildungswerk Euler
           </Link>
@@ -230,6 +255,9 @@ export default function ButCheckPage() {
           <Link href="/studenten" onClick={() => setOpen(false)}>
             Studenten
           </Link>
+          <Link href="/but-check" onClick={() => setOpen(false)}>
+            BuT
+          </Link>
         </div>
       )}
 
@@ -237,22 +265,30 @@ export default function ButCheckPage() {
         <div className="but-hero__overlay">
           <div className="but-hero__content">
             <div className="but-hero__card">
-              <p className="but-hero__eyebrow">Bildung und Teilhabe</p>
-              <h1>Kostenlose Nachhilfe prüfen</h1>
+              <p className="but-hero__eyebrow">
+                {isArabic ? "Bildung und Teilhabe" : "Bildung und Teilhabe"}
+              </p>
+              <h1>
+                {isArabic
+                  ? "فحص إمكانية الحصول على دروس دعم مجانية"
+                  : "Kostenlose Nachhilfe prüfen"}
+              </h1>
               <p className="but-hero__text">
-                Wenn Sie Bürgergeld, Wohngeld, Kinderzuschlag oder Sozialhilfe
-                beziehen, kann schulische Lernförderung in vielen Fällen
-                vollständig übernommen werden.
+                {isArabic
+                  ? "إذا كنتم تحصلون على Bürgergeld أو Wohngeld أو Kinderzuschlag أو Sozialhilfe، فقد يتم تغطية تكاليف الدعم الدراسي لطفلكم بالكامل في كثير من الحالات."
+                  : "Wenn Sie Bürgergeld, Wohngeld, Kinderzuschlag oder Sozialhilfe beziehen, kann schulische Lernförderung in vielen Fällen vollständig übernommen werden."}
               </p>
               <div className="but-hero__actions">
-                <a href="#but-generator" className="btn btn-primary">
-                  Jetzt Formular vorbereiten
+                <a href="#but-generator" className="btn btn-tertiary">
+                  {isArabic
+                    ? "تحضير النموذج الآن"
+                    : "Jetzt Formular vorbereiten"}
                 </a>
                 <a
                   href="https://wa.me/4915256075324"
                   className="btn btn-secondary-dark"
                 >
-                  WhatsApp öffnen
+                  {isArabic ? "فتح واتساب" : "WhatsApp öffnen"}
                 </a>
               </div>
             </div>
@@ -262,45 +298,53 @@ export default function ButCheckPage() {
 
       <section className="but-info">
         <div className="but-section-header">
-          <h2>So funktioniert es</h2>
+          <h2>{isArabic ? "كيف تسير الخطوات؟" : "So funktioniert es"}</h2>
           <p>
-            Wir vereinfachen den Einstieg so weit wie möglich. Sie füllen nur
-            die Grunddaten aus, wir bereiten das offizielle Formular vor und den
-            Rest des Ablaufs begleiten wir mit Ihnen gemeinsam.
+            {isArabic
+              ? "نحن نجعل البداية سهلة قدر الإمكان. تقومون بإدخال البيانات الأساسية فقط، ونقوم نحن بتحضير النموذج الرسمي ومرافقتكم في باقي الخطوات."
+              : "Wir vereinfachen den Einstieg so weit wie möglich. Sie füllen nur die Grunddaten aus, wir bereiten das offizielle Formular vor und den Rest des Ablaufs begleiten wir mit Ihnen gemeinsam."}
           </p>
           <div className="but-section-line"></div>
         </div>
 
         <div className="but-steps">
           <div className="but-step-card">
-            <h3>1. Daten eingeben</h3>
+            <h3>{isArabic ? "١. إدخال البيانات" : "1. Daten eingeben"}</h3>
             <p>
-              Wählen Sie Ihren Bezirk, die passende Leistungsart und tragen Sie
-              die Grunddaten Ihres Kindes ein.
+              {isArabic
+                ? "اختاروا المنطقة ونوع المساعدة المناسبة، ثم أدخلوا البيانات الأساسية لطفلكم."
+                : "Wählen Sie Ihren Bezirk, die passende Leistungsart und tragen Sie die Grunddaten Ihres Kindes ein."}
             </p>
           </div>
 
           <div className="but-step-card">
-            <h3>2. PDF herunterladen</h3>
+            <h3>{isArabic ? "٢. إنشاء ملف PDF" : "2. PDF herunterladen"}</h3>
             <p>
-              Sie erhalten die passende Vorlage bereits vorausgefüllt und sparen
-              sich unnötige Rückfragen und manuelle Vorarbeit.
+              {isArabic
+                ? "تحصلون على النموذج المناسب وقد تم تعبئة البيانات الأساسية فيه مسبقاً."
+                : "Sie erhalten die passende Vorlage bereits vorausgefüllt und sparen sich unnötige Rückfragen und manuelle Vorarbeit."}
             </p>
           </div>
 
           <div className="but-step-card">
-            <h3>3. Schule ausfüllen lassen</h3>
+            <h3>
+              {isArabic
+                ? "٣. المدرسة تكمل النموذج"
+                : "3. Schule ausfüllen lassen"}
+            </h3>
             <p>
-              Die Lehrkraft ergänzt nur noch den schulischen Teil und bestätigt,
-              dass die Lernförderung zusätzlich erforderlich ist.
+              {isArabic
+                ? "تقوم المدرسة أو المعلمة أو المعلم بتعبئة الجزء المدرسي والتأكيد على الحاجة إلى الدعم التعليمي."
+                : "Die Lehrkraft ergänzt nur noch den schulischen Teil und bestätigt, dass die Lernförderung zusätzlich erforderlich ist."}
             </p>
           </div>
 
           <div className="but-step-card">
-            <h3>4. Uns zuschicken</h3>
+            <h3>{isArabic ? "٤. إرسال النموذج إلينا" : "4. Uns zuschicken"}</h3>
             <p>
-              Senden Sie uns das unterschriebene Formular per WhatsApp. Den
-              weiteren Ablauf übernehmen wir gemeinsam mit Ihnen.
+              {isArabic
+                ? "أرسلوا لنا النموذج بعد تعبئته وختمه عبر واتساب، وسنرافقكم في الخطوات التالية."
+                : "Senden Sie uns das unterschriebene Formular per WhatsApp. Den weiteren Ablauf übernehmen wir gemeinsam mit Ihnen."}
             </p>
           </div>
         </div>
@@ -308,17 +352,69 @@ export default function ButCheckPage() {
 
       <section className="but-generator" id="but-generator">
         <div className="but-generator__box">
-          <p className="but-generator__eyebrow">Formular-Generator</p>
-          <h2>Formular zur Lernförderung vorbereiten</h2>
+          <p className="but-generator__eyebrow">Bildung und Teilhabe</p>
+          <h2>
+            {isArabic
+              ? "لديكم خياران بسيطان"
+              : "Sie haben zwei einfache Möglichkeiten"}
+          </h2>
           <p className="but-generator__intro">
-            Wählen Sie zuerst Ihren Bezirk und die passende Leistungsart aus.
-            Anschließend erstellen wir Ihnen daraus die offizielle Vorlage
-            bereits vorausgefüllt.
+            {isArabic
+              ? "يمكنكم التواصل معنا مباشرة عبر واتساب لنراجع الخطوات معكم. أو يمكنكم تحضير النموذج المدرسي بأنفسكم هنا ثم إرساله إلينا بعد تعبئته من المدرسة."
+              : "Sie können uns direkt per WhatsApp kontaktieren, damit wir den Ablauf gemeinsam mit Ihnen prüfen. Oder Sie bereiten das Schulformular direkt selbst vor und senden es uns anschließend ausgefüllt zurück."}
           </p>
+
+          <div className="but-choice-boxes">
+            <a href="#formular" className="but-choice-card">
+              <span>{isArabic ? "أسرع طريقة" : "Schnellste Methode"}</span>
+              <strong>
+                {isArabic ? "تعبئة النموذج الآن" : "Jetzt Formular vorbereiten"}
+              </strong>
+              <small>
+                {isArabic
+                  ? "أدخلوا البيانات الأساسية، افتحوا ملف PDF، ثم قدّموه مباشرة إلى المدرسة."
+                  : "Daten eintragen, PDF öffnen und direkt bei der Schule abgeben."}
+              </small>
+            </a>
+
+            <a
+              href="https://wa.me/4915256075324"
+              onClick={() => {
+                const normalizedLang = languageCode.toUpperCase();
+                trackButEvent({
+                  ref: `${refCode}-${normalizedLang}`,
+                });
+              }}
+              className="but-choice-card"
+            >
+              <span>
+                {isArabic ? "مباشرة عبر واتساب" : "Direkt über WhatsApp"}
+              </span>
+              <strong>
+                {isArabic
+                  ? "أريد المساعدة في الخطوات"
+                  : "Ich möchte Hilfe beim Ablauf"}
+              </strong>
+              <small>
+                {isArabic
+                  ? "اكتبوا لنا مباشرة. نراجع معكم الخطوات المناسبة ونساعدكم في فهم ما يجب فعله."
+                  : "Schreiben Sie uns direkt. Wir prüfen gemeinsam, welche nächsten Schritte sinnvoll sind."}
+              </small>
+            </a>
+          </div>
+
+          <div id="formular" className="but-generator__form-anchor">
+            <h3>{isArabic ? "تحضير النموذج" : "Formular vorbereiten"}</h3>
+            <p>
+              {isArabic
+                ? "اختاروا أولاً المنطقة ونوع المساعدة المناسبة. بعد ذلك يمكنكم إدخال بيانات طفلكم."
+                : "Wählen Sie zuerst Ihren Bezirk und die passende Leistungsart aus. Danach können Sie die Angaben Ihres Kindes eintragen."}
+            </p>
+          </div>
 
           <div className="but-generator__top">
             <label className="but-field">
-              <span>Bezirk / Stadt</span>
+              <span>{isArabic ? "المنطقة / المدينة" : "Bezirk / Stadt"}</span>
               <select
                 value={district}
                 onChange={(e) => setDistrict(e.target.value)}
@@ -332,12 +428,14 @@ export default function ButCheckPage() {
 
             <div className="but-eligibility">
               <span className="but-eligibility__title">
-                Voraussetzung für Bildung und Teilhabe
+                {isArabic
+                  ? "شرط الاستفادة من Bildung und Teilhabe"
+                  : "Voraussetzung für Bildung und Teilhabe"}
               </span>
               <p className="but-eligibility__text">
-                Bitte wählen Sie aus, welche Leistung Sie aktuell beziehen. Ohne
-                eine dieser Leistungen ist eine BuT-Lernförderung in der Regel
-                nicht möglich.
+                {isArabic
+                  ? "يرجى اختيار نوع المساعدة التي تحصلون عليها حالياً. بدون إحدى هذه المساعدات، غالباً لا تكون Lernförderung ممكنة عبر BuT."
+                  : "Bitte wählen Sie aus, welche Leistung Sie aktuell beziehen. Ohne eine dieser Leistungen ist eine BuT-Lernförderung in der Regel nicht möglich."}
               </p>
 
               <div className="but-benefit-grid">
@@ -346,7 +444,9 @@ export default function ButCheckPage() {
                   onClick={() => setSelectedBenefit("bürgergeld")}
                   style={benefitButtonStyle(selectedBenefit === "bürgergeld")}
                 >
-                  Bürgergeld (Jobcenter)
+                  {isArabic
+                    ? "Bürgergeld (Jobcenter)"
+                    : "Bürgergeld (Jobcenter)"}
                 </button>
 
                 <button
@@ -354,7 +454,7 @@ export default function ButCheckPage() {
                   onClick={() => setSelectedBenefit("wohngeld")}
                   style={benefitButtonStyle(selectedBenefit === "wohngeld")}
                 >
-                  Wohngeld
+                  {isArabic ? "Wohngeld" : "Wohngeld"}
                 </button>
 
                 <button
@@ -364,7 +464,7 @@ export default function ButCheckPage() {
                     selectedBenefit === "kinderzuschlag"
                   )}
                 >
-                  Kinderzuschlag
+                  {isArabic ? "Kinderzuschlag" : "Kinderzuschlag"}
                 </button>
 
                 <button
@@ -372,7 +472,7 @@ export default function ButCheckPage() {
                   onClick={() => setSelectedBenefit("sozialhilfe")}
                   style={benefitButtonStyle(selectedBenefit === "sozialhilfe")}
                 >
-                  Sozialhilfe
+                  {isArabic ? "Sozialhilfe" : "Sozialhilfe"}
                 </button>
               </div>
             </div>
@@ -380,71 +480,82 @@ export default function ButCheckPage() {
 
           <div className="but-fields">
             <label className="but-field">
-              <span>Name des Kindes</span>
+              <span>{isArabic ? "اسم الطفل" : "Name des Kindes"}</span>
               <input
                 type="text"
                 value={childName}
                 onChange={(e) => setChildName(e.target.value)}
                 disabled={!formEnabled}
-                placeholder="z. B. Max Mustermann"
+                placeholder={
+                  isArabic ? "مثال: Max Mustermann" : "z. B. Max Mustermann"
+                }
                 style={inputStyle}
               />
             </label>
 
             <label className="but-field">
-              <span>Geburtsdatum</span>
+              <span>{isArabic ? "تاريخ الميلاد" : "Geburtsdatum"}</span>
               <input
                 type="text"
                 value={birthDate}
                 onChange={(e) => setBirthDate(e.target.value)}
                 disabled={!formEnabled}
-                placeholder="z. B. 01.01.2015"
+                placeholder={isArabic ? "مثال: 01.01.2015" : "z. B. 01.01.2015"}
                 style={inputStyle}
               />
             </label>
 
             <label className="but-field">
-              <span>Jahrgangsstufe / Klasse</span>
+              <span>
+                {isArabic
+                  ? "الصف / المرحلة الدراسية"
+                  : "Jahrgangsstufe / Klasse"}
+              </span>
               <input
                 type="text"
                 value={schoolClass}
                 onChange={(e) => setSchoolClass(e.target.value)}
                 disabled={!formEnabled}
-                placeholder="z. B. 7b"
+                placeholder={isArabic ? "مثال: 7b" : "z. B. 7b"}
                 style={inputStyle}
               />
             </label>
 
             <label className="but-field">
-              <span>Aktenzeichen (optional)</span>
+              <span>
+                {isArabic ? "رقم الملف (اختياري)" : "Aktenzeichen (optional)"}
+              </span>
               <input
                 type="text"
                 value={aktenzeichen}
                 onChange={(e) => setAktenzeichen(e.target.value)}
                 disabled={!formEnabled}
-                placeholder="Kann nachgereicht werden"
+                placeholder={
+                  isArabic ? "يمكن إرساله لاحقاً" : "Kann nachgereicht werden"
+                }
                 style={inputStyle}
               />
             </label>
           </div>
 
+          <p className="but-privacy-note">
+            {isArabic
+              ? "تُستخدم بياناتكم فقط لمعالجة طلب الدعم التعليمي. بعد انتهاء الطلب، يتم حذف البيانات تلقائياً."
+              : "Ihre Daten werden ausschließlich zur Bearbeitung Ihrer Anfrage zur Lernförderung verwendet. Nach Beendigung der Anfrage werden die Daten automatisch gelöscht."}
+          </p>
           <div className="but-generator__actions">
             <button
               onClick={generatePdf}
               disabled={isGenerating || !formEnabled}
-              style={{
-                ...buttonStyle,
-                background: "#111",
-                color: "#fff",
-                cursor: isGenerating
-                  ? "wait"
-                  : !formEnabled
-                  ? "not-allowed"
-                  : "pointer",
-                opacity: isGenerating || !formEnabled ? 0.75 : 1,
-              }}
+              className="btn btn-tertiary but-action-button"
             >
-              {isGenerating ? "PDF wird erstellt ..." : "Formular erstellen"}
+              {isGenerating
+                ? isArabic
+                  ? "يتم إنشاء ملف PDF ..."
+                  : "PDF wird erstellt ..."
+                : isArabic
+                ? "إنشاء النموذج"
+                : "Formular erstellen"}
             </button>
 
             <a
@@ -455,14 +566,9 @@ export default function ButCheckPage() {
                   ref: `${refCode}-${normalizedLang}`,
                 });
               }}
-              style={{
-                ...buttonStyle,
-                background: "#e9e1d6",
-                color: "#111",
-                textDecoration: "none",
-              }}
+              className="btn btn-whatsapp but-action-button"
             >
-              WhatsApp öffnen
+              {isArabic ? "فتح واتساب" : "WhatsApp öffnen"}
             </a>
           </div>
         </div>
@@ -470,7 +576,11 @@ export default function ButCheckPage() {
 
       <footer className="footer">
         <p>Bildungswerk Euler</p>
-        <p>Nachhilfe · Ausbildungsprogramme · Kurse</p>
+        <p>
+          {isArabic
+            ? "دروس دعم · برامج تعليمية · دورات"
+            : "Nachhilfe · Ausbildungsprogramme · Kurse"}
+        </p>
         <p className="footer__legal">
           © 2026 Bildungswerk Euler · <Link href="/impressum">Impressum</Link> ·{" "}
           <Link href="/datenschutz">Datenschutz</Link>
@@ -488,17 +598,6 @@ const inputStyle: React.CSSProperties = {
   fontSize: "16px",
   outline: "none",
   width: "100%",
-};
-
-const buttonStyle: React.CSSProperties = {
-  display: "inline-flex",
-  alignItems: "center",
-  justifyContent: "center",
-  minHeight: "52px",
-  padding: "0 22px",
-  border: "none",
-  fontSize: "15px",
-  fontWeight: 600,
 };
 
 function benefitButtonStyle(isActive: boolean): React.CSSProperties {
