@@ -56,8 +56,10 @@ export default function Home() {
         <nav className="header__nav">
           <Link href="/">Bildungswerk Euler</Link>
           <Link href="/schueler">Schüler</Link>
-          <Link href="/studenten">Studenten</Link>
           <Link href="/but-check">BuT</Link>
+          <Link href="/studenten">Studenten</Link>
+          <Link href="/weiterbildung">Weiterbildung</Link>
+          <Link href="/kurse">Kurse</Link>
         </nav>
 
         <div
@@ -77,11 +79,17 @@ export default function Home() {
           <Link href="/schueler" onClick={() => setOpen(false)}>
             Schüler
           </Link>
+          <Link href="/but-check" onClick={() => setOpen(false)}>
+            BuT
+          </Link>
           <Link href="/studenten" onClick={() => setOpen(false)}>
             Studenten
           </Link>
-          <Link href="/but-check" onClick={() => setOpen(false)}>
-            BuT
+          <Link href="/weiterbildung" onClick={() => setOpen(false)}>
+            Weiterbildung
+          </Link>
+          <Link href="/kurse" onClick={() => setOpen(false)}>
+            Kurse
           </Link>
         </div>
       )}

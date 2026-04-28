@@ -52,7 +52,7 @@ export default function SchuelerPage() {
   const whatsappClaimMessage =
     "Hallo, ich möchte meinen Anspruch auf kostenlose Nachhilfe prüfen lassen.";
   const whatsappClaimUrl = `https://api.whatsapp.com/send?phone=4915256075324&text=${encodeURIComponent(
-    whatsappClaimMessage
+    whatsappClaimMessage,
   )}`;
 
   function trackButEvent(params: {
@@ -91,7 +91,7 @@ export default function SchuelerPage() {
   async function generatePdf() {
     if (!selectedBenefit) {
       alert(
-        "Bitte wählen Sie zuerst aus, über welche Leistung Bildung und Teilhabe beantragt wird."
+        "Bitte wählen Sie zuerst aus, über welche Leistung Bildung und Teilhabe beantragt wird.",
       );
       return;
     }
@@ -103,7 +103,7 @@ export default function SchuelerPage() {
 
     if (district !== "wiesbaden") {
       alert(
-        "Für diesen Bezirk wird das Formular in Kürze freigeschaltet. Aktuell ist nur Wiesbaden verfügbar."
+        "Für diesen Bezirk wird das Formular in Kürze freigeschaltet. Aktuell ist nur Wiesbaden verfügbar.",
       );
       return;
     }
@@ -121,7 +121,7 @@ export default function SchuelerPage() {
 
       const existingPdfBytes = await fetch(
         `/but-wiesbaden-bestaetigung-der-schule.pdf?v=${Date.now()}`,
-        { cache: "no-store" }
+        { cache: "no-store" },
       ).then((res) => res.arrayBuffer());
 
       const pdfDoc = await PDFDocument.load(existingPdfBytes);
@@ -165,7 +165,7 @@ export default function SchuelerPage() {
       const pdfBytes = await pdfDoc.save();
       const pdfArrayBuffer = pdfBytes.buffer.slice(
         pdfBytes.byteOffset,
-        pdfBytes.byteOffset + pdfBytes.byteLength
+        pdfBytes.byteOffset + pdfBytes.byteLength,
       ) as ArrayBuffer;
       const blob = new Blob([pdfArrayBuffer], { type: "application/pdf" });
       const url = URL.createObjectURL(blob);
@@ -201,8 +201,10 @@ export default function SchuelerPage() {
         <nav className="header__nav">
           <Link href="/">Bildungswerk Euler</Link>
           <Link href="/schueler">Schüler</Link>
-          <Link href="/studenten">Studenten</Link>
           <Link href="/but-check">BuT</Link>
+          <Link href="/studenten">Studenten</Link>
+          <Link href="/weiterbildung">Weiterbildung</Link>
+          <Link href="/kurse">Kurse</Link>
         </nav>
 
         <div className="header__menu" onClick={() => setOpen(!open)}>
@@ -211,15 +213,23 @@ export default function SchuelerPage() {
       </header>
       {open && (
         <div className="mobile-menu" ref={mobileMenuRef}>
-          <Link href="/">Bildungswerk Euler</Link>
+          <Link href="/" onClick={() => setOpen(false)}>
+            Bildungswerk Euler
+          </Link>
           <Link href="/schueler" onClick={() => setOpen(false)}>
             Schüler
+          </Link>
+          <Link href="/but-check" onClick={() => setOpen(false)}>
+            BuT
           </Link>
           <Link href="/studenten" onClick={() => setOpen(false)}>
             Studenten
           </Link>
-          <Link href="/but-check" onClick={() => setOpen(false)}>
-            BuT
+          <Link href="/weiterbildung" onClick={() => setOpen(false)}>
+            Weiterbildung
+          </Link>
+          <Link href="/kurse" onClick={() => setOpen(false)}>
+            Kurse
           </Link>
         </div>
       )}
@@ -441,7 +451,7 @@ export default function SchuelerPage() {
                   type="button"
                   onClick={() => setSelectedBenefit("kinderzuschlag")}
                   style={benefitButtonStyle(
-                    selectedBenefit === "kinderzuschlag"
+                    selectedBenefit === "kinderzuschlag",
                   )}
                 >
                   Kinderzuschlag

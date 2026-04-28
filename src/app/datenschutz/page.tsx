@@ -23,8 +23,10 @@ export default function DatenschutzPage() {
         <nav className="header__nav">
           <Link href="/">Bildungswerk Euler</Link>
           <Link href="/schueler">Schüler</Link>
-          <Link href="/studenten">Studenten</Link>
           <Link href="/but-check">BuT</Link>
+          <Link href="/studenten">Studenten</Link>
+          <Link href="/weiterbildung">Weiterbildung</Link>
+          <Link href="/kurse">Kurse</Link>
         </nav>
 
         <div className="header__menu" onClick={() => setOpen(!open)}>
@@ -34,17 +36,24 @@ export default function DatenschutzPage() {
 
       {open && (
         <div className="mobile-menu">
+          {" "}
           <Link href="/" onClick={() => setOpen(false)}>
             Bildungswerk Euler
           </Link>
           <Link href="/schueler" onClick={() => setOpen(false)}>
             Schüler
           </Link>
+          <Link href="/but-check" onClick={() => setOpen(false)}>
+            BuT
+          </Link>
           <Link href="/studenten" onClick={() => setOpen(false)}>
             Studenten
           </Link>
-          <Link href="/but-check" onClick={() => setOpen(false)}>
-            BuT
+          <Link href="/weiterbildung" onClick={() => setOpen(false)}>
+            Weiterbildung
+          </Link>
+          <Link href="/kurse" onClick={() => setOpen(false)}>
+            Kurse
           </Link>
         </div>
       )}
