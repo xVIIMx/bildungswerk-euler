@@ -13,6 +13,22 @@ function isFilled(value: unknown): value is string {
   return typeof value === "string" && value.trim().length > 0;
 }
 
+function getErrorCode(error: unknown) {
+  if (error instanceof Error && "code" in error) {
+    const code = (error as { code?: unknown }).code;
+
+    if (typeof code === "string") {
+      return code;
+    }
+  }
+
+  if (error instanceof Error) {
+    return error.name || "UNKNOWN_ERROR";
+  }
+
+  return "UNKNOWN_ERROR";
+}
+
 export async function POST(request: Request) {
   try {
     const data = (await request.json()) as FinishLineApplication;
@@ -82,10 +98,15 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ message: "Bewerbung wurde gesendet." });
   } catch (error) {
+    const errorCode = getErrorCode(error);
+
     console.error("Finish Line application error:", error);
 
     return NextResponse.json(
-      { message: "Bewerbung konnte nicht gesendet werden." },
+      {
+        message: "Bewerbung konnte nicht gesendet werden.",
+        errorCode,
+      },
       { status: 500 }
     );
   }
