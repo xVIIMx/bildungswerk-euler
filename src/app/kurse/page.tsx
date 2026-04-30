@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -263,15 +263,15 @@ export default function KursePage() {
         <p>Bildungswerk Euler</p>
         <p>Nachhilfe · Weiterbildung · Kurse</p>
         <p className="footer__legal">
-          © 2026 Bildungswerk Euler · <a href="/impressum">Impressum</a> ·{" "}
-          <a href="/datenschutz">Datenschutz</a>
+          © 2026 Bildungswerk Euler · <Link href="/impressum">Impressum</Link> ·{" "}
+          <Link href="/datenschutz">Datenschutz</Link>
         </p>
       </footer>
 
       <div className="floating-contact" ref={contactRef}>
         <button
           className="floating-contact__button"
-          onClick={() => setContactOpen(!contactOpen)}
+          onClick={() => setContactOpen((prev) => !prev)}
         >
           Jetzt beraten lassen!
         </button>

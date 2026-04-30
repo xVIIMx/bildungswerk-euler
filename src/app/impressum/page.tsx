@@ -29,7 +29,7 @@ export default function ImpressumPage() {
           <Link href="/kurse">Kurse</Link>
         </nav>
 
-        <div className="header__menu" onClick={() => setOpen(!open)}>
+        <div className="header__menu" onClick={() => setOpen((prev) => !prev)}>
           ☰
         </div>
       </header>

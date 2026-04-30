@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect, useRef } from "react";
+import { type CSSProperties, useEffect, useRef, useState } from "react";
 import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
 
 export default function SchuelerPage() {
@@ -52,7 +52,7 @@ export default function SchuelerPage() {
   const whatsappClaimMessage =
     "Hallo, ich möchte meinen Anspruch auf kostenlose Nachhilfe prüfen lassen.";
   const whatsappClaimUrl = `https://api.whatsapp.com/send?phone=4915256075324&text=${encodeURIComponent(
-    whatsappClaimMessage,
+    whatsappClaimMessage
   )}`;
 
   function trackButEvent(params: {
@@ -91,7 +91,7 @@ export default function SchuelerPage() {
   async function generatePdf() {
     if (!selectedBenefit) {
       alert(
-        "Bitte wählen Sie zuerst aus, über welche Leistung Bildung und Teilhabe beantragt wird.",
+        "Bitte wählen Sie zuerst aus, über welche Leistung Bildung und Teilhabe beantragt wird."
       );
       return;
     }
@@ -103,7 +103,7 @@ export default function SchuelerPage() {
 
     if (district !== "wiesbaden") {
       alert(
-        "Für diesen Bezirk wird das Formular in Kürze freigeschaltet. Aktuell ist nur Wiesbaden verfügbar.",
+        "Für diesen Bezirk wird das Formular in Kürze freigeschaltet. Aktuell ist nur Wiesbaden verfügbar."
       );
       return;
     }
@@ -121,7 +121,7 @@ export default function SchuelerPage() {
 
       const existingPdfBytes = await fetch(
         `/but-wiesbaden-bestaetigung-der-schule.pdf?v=${Date.now()}`,
-        { cache: "no-store" },
+        { cache: "no-store" }
       ).then((res) => res.arrayBuffer());
 
       const pdfDoc = await PDFDocument.load(existingPdfBytes);
@@ -165,7 +165,7 @@ export default function SchuelerPage() {
       const pdfBytes = await pdfDoc.save();
       const pdfArrayBuffer = pdfBytes.buffer.slice(
         pdfBytes.byteOffset,
-        pdfBytes.byteOffset + pdfBytes.byteLength,
+        pdfBytes.byteOffset + pdfBytes.byteLength
       ) as ArrayBuffer;
       const blob = new Blob([pdfArrayBuffer], { type: "application/pdf" });
       const url = URL.createObjectURL(blob);
@@ -207,7 +207,7 @@ export default function SchuelerPage() {
           <Link href="/kurse">Kurse</Link>
         </nav>
 
-        <div className="header__menu" onClick={() => setOpen(!open)}>
+        <div className="header__menu" onClick={() => setOpen((prev) => !prev)}>
           ☰
         </div>
       </header>
@@ -451,7 +451,7 @@ export default function SchuelerPage() {
                   type="button"
                   onClick={() => setSelectedBenefit("kinderzuschlag")}
                   style={benefitButtonStyle(
-                    selectedBenefit === "kinderzuschlag",
+                    selectedBenefit === "kinderzuschlag"
                   )}
                 >
                   Kinderzuschlag
@@ -581,15 +581,15 @@ export default function SchuelerPage() {
         <p>Bildungswerk Euler</p>
         <p>Nachhilfe · Ausbildungsprogramme · Kurse</p>
         <p className="footer__legal">
-          © 2026 Bildungswerk Euler · <a href="/impressum">Impressum</a> ·{" "}
-          <a href="/datenschutz">Datenschutz</a>
+          © 2026 Bildungswerk Euler · <Link href="/impressum">Impressum</Link> ·{" "}
+          <Link href="/datenschutz">Datenschutz</Link>
         </p>
       </footer>
 
       <div className="floating-contact" ref={contactRef}>
         <button
           className="floating-contact__button"
-          onClick={() => setContactOpen(!contactOpen)}
+          onClick={() => setContactOpen((prev) => !prev)}
         >
           Jetzt beraten lassen!
         </button>
@@ -605,7 +605,7 @@ export default function SchuelerPage() {
   );
 }
 
-const inputStyle: React.CSSProperties = {
+const inputStyle: CSSProperties = {
   height: "52px",
   padding: "0 14px",
   border: "1px solid #d8cfc2",
@@ -615,7 +615,7 @@ const inputStyle: React.CSSProperties = {
   width: "100%",
 };
 
-function benefitButtonStyle(isActive: boolean): React.CSSProperties {
+function benefitButtonStyle(isActive: boolean): CSSProperties {
   return {
     minHeight: "62px",
     padding: "14px 16px",

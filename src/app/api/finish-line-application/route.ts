@@ -3,6 +3,10 @@ import nodemailer from "nodemailer";
 
 type FinishLineApplication = {
   name?: string;
+  email?: string;
+  newsletter?: boolean;
+  website?: string;
+  startedAt?: string;
   university?: string;
   course?: string;
   subject?: string;
@@ -13,34 +17,47 @@ function isFilled(value: unknown): value is string {
   return typeof value === "string" && value.trim().length > 0;
 }
 
-function getErrorCode(error: unknown) {
-  if (error instanceof Error && "code" in error) {
-    const code = (error as { code?: unknown }).code;
+function isValidEmail(value: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+}
 
-    if (typeof code === "string") {
-      return code;
-    }
+function wasSubmittedTooFast(startedAt?: string) {
+  if (!startedAt) {
+    return true;
   }
 
-  if (error instanceof Error) {
-    return error.name || "UNKNOWN_ERROR";
+  const startedAtNumber = Number(startedAt);
+
+  if (!Number.isFinite(startedAtNumber)) {
+    return true;
   }
 
-  return "UNKNOWN_ERROR";
+  const elapsedMs = Date.now() - startedAtNumber;
+
+  return elapsedMs < 3000;
 }
 
 export async function POST(request: Request) {
   try {
     const data = (await request.json()) as FinishLineApplication;
-
     const name = data.name?.trim();
+    const email = data.email?.trim();
+    const newsletter = data.newsletter === true;
+    const website = data.website?.trim();
+    const startedAt = data.startedAt;
     const university = data.university?.trim();
     const course = data.course?.trim();
     const subject = data.subject?.trim();
     const reason = data.reason?.trim();
 
+    if (isFilled(website) || wasSubmittedTooFast(startedAt)) {
+      return NextResponse.json({ message: "Bewerbung wurde gesendet." });
+    }
+
     if (
       !isFilled(name) ||
+      !isFilled(email) ||
+      !isValidEmail(email) ||
       !isFilled(university) ||
       !isFilled(course) ||
       !isFilled(subject) ||
@@ -80,6 +97,9 @@ export async function POST(request: Request) {
       "Neue Bewerbung für das Finish Line Projekt",
       "",
       `Name: ${name}`,
+      `E-Mail: ${email}`,
+      `Newsletter-Einwilligung: ${newsletter ? "Ja" : "Nein"}`,
+      "",
       `Hochschule / Universität: ${university}`,
       `Studiengang: ${course}`,
       `Fach / Modul im Drittversuch: ${subject}`,
@@ -93,20 +113,15 @@ export async function POST(request: Request) {
       to: mailTo,
       subject: `Finish Line Bewerbung: ${name}`,
       text,
-      replyTo: mailFrom,
+      replyTo: email,
     });
 
     return NextResponse.json({ message: "Bewerbung wurde gesendet." });
   } catch (error) {
-    const errorCode = getErrorCode(error);
-
     console.error("Finish Line application error:", error);
 
     return NextResponse.json(
-      {
-        message: "Bewerbung konnte nicht gesendet werden.",
-        errorCode,
-      },
+      { message: "Bewerbung konnte nicht gesendet werden." },
       { status: 500 }
     );
   }

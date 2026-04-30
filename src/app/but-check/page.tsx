@@ -1,10 +1,15 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import {
+  type CSSProperties,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
-import { useSearchParams } from "next/navigation";
 
 export default function ButCheckPage() {
   const [open, setOpen] = useState(false);
@@ -16,8 +21,14 @@ export default function ButCheckPage() {
   const [schoolClass, setSchoolClass] = useState("");
   const [aktenzeichen, setAktenzeichen] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
-  const [refCode, setRefCode] = useState("KEINCODE");
-  const [languageCode, setLanguageCode] = useState("de");
+  const [refCode] = useState(() => {
+    if (typeof window === "undefined") return "KEINCODE";
+    return new URLSearchParams(window.location.search).get("ref") || "KEINCODE";
+  });
+  const [languageCode] = useState(() => {
+    if (typeof window === "undefined") return "de";
+    return new URLSearchParams(window.location.search).get("lang") || "de";
+  });
   const mobileMenuRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -27,12 +38,6 @@ export default function ButCheckPage() {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    setRefCode(params.get("ref") || "KEINCODE");
-    setLanguageCode(params.get("lang") || "de");
   }, []);
 
   useEffect(() => {
@@ -64,7 +69,7 @@ export default function ButCheckPage() {
     ? "مرحباً، أريد فحص إمكانية الحصول على دروس دعم مجانية."
     : "Hallo, ich möchte meinen Anspruch auf kostenlose Nachhilfe prüfen lassen.";
   const whatsappClaimUrl = `https://api.whatsapp.com/send?phone=4915256075324&text=${encodeURIComponent(
-    whatsappClaimMessage,
+    whatsappClaimMessage
   )}`;
 
   function trackButEvent(params: {
@@ -105,7 +110,7 @@ export default function ButCheckPage() {
       alert(
         isArabic
           ? "يرجى أولاً اختيار نوع المساعدة التي تحصلون عليها."
-          : "Bitte wählen Sie zuerst aus, über welche Leistung Bildung und Teilhabe beantragt wird.",
+          : "Bitte wählen Sie zuerst aus, über welche Leistung Bildung und Teilhabe beantragt wird."
       );
       return;
     }
@@ -114,7 +119,7 @@ export default function ButCheckPage() {
       alert(
         isArabic
           ? "يرجى تعبئة جميع الحقول المطلوبة."
-          : "Bitte füllen Sie alle Pflichtfelder aus.",
+          : "Bitte füllen Sie alle Pflichtfelder aus."
       );
       return;
     }
@@ -123,7 +128,7 @@ export default function ButCheckPage() {
       alert(
         isArabic
           ? `سيتم تفعيل نموذج ${districtLabel} قريباً. حالياً النموذج متاح فقط لمدينة Wiesbaden.`
-          : `Für ${districtLabel} wird das Formular in Kürze freigeschaltet. Aktuell ist nur Wiesbaden verfügbar.`,
+          : `Für ${districtLabel} wird das Formular in Kürze freigeschaltet. Aktuell ist nur Wiesbaden verfügbar.`
       );
       return;
     }
@@ -192,7 +197,7 @@ export default function ButCheckPage() {
       const pdfBytes = await pdfDoc.save();
       const pdfArrayBuffer = pdfBytes.buffer.slice(
         pdfBytes.byteOffset,
-        pdfBytes.byteOffset + pdfBytes.byteLength,
+        pdfBytes.byteOffset + pdfBytes.byteLength
       ) as ArrayBuffer;
       const blob = new Blob([pdfArrayBuffer], { type: "application/pdf" });
       const url = URL.createObjectURL(blob);
@@ -207,7 +212,7 @@ export default function ButCheckPage() {
       alert(
         isArabic
           ? "حدث خطأ أثناء إنشاء ملف PDF."
-          : "Beim Erstellen der PDF ist ein Fehler aufgetreten.",
+          : "Beim Erstellen der PDF ist ein Fehler aufgetreten."
       );
     } finally {
       setIsGenerating(false);
@@ -254,7 +259,7 @@ export default function ButCheckPage() {
       </header>
 
       {open && (
-        <div className="mobile-menu">
+        <div className="mobile-menu" ref={mobileMenuRef}>
           <Link href="/" onClick={() => setOpen(false)}>
             Bildungswerk Euler
           </Link>
@@ -473,7 +478,7 @@ export default function ButCheckPage() {
                   type="button"
                   onClick={() => setSelectedBenefit("kinderzuschlag")}
                   style={benefitButtonStyle(
-                    selectedBenefit === "kinderzuschlag",
+                    selectedBenefit === "kinderzuschlag"
                   )}
                 >
                   {isArabic ? "Kinderzuschlag" : "Kinderzuschlag"}
@@ -566,8 +571,8 @@ export default function ButCheckPage() {
                   ? "يتم إنشاء ملف PDF ..."
                   : "PDF wird erstellt ..."
                 : isArabic
-                  ? "إنشاء النموذج"
-                  : "Formular erstellen"}
+                ? "إنشاء النموذج"
+                : "Formular erstellen"}
             </button>
 
             <a
@@ -602,7 +607,7 @@ export default function ButCheckPage() {
   );
 }
 
-const inputStyle: React.CSSProperties = {
+const inputStyle: CSSProperties = {
   height: "52px",
   padding: "0 14px",
   border: "1px solid #d8cfc2",
@@ -612,7 +617,7 @@ const inputStyle: React.CSSProperties = {
   width: "100%",
 };
 
-function benefitButtonStyle(isActive: boolean): React.CSSProperties {
+function benefitButtonStyle(isActive: boolean): CSSProperties {
   return {
     minHeight: "62px",
     padding: "14px 16px",

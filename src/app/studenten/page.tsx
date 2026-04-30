@@ -9,6 +9,12 @@ export default function StudentenPage() {
   const [scrolled, setScrolled] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
   const [finishLineName, setFinishLineName] = useState("");
+  const [finishLineEmail, setFinishLineEmail] = useState("");
+  const [finishLineNewsletter, setFinishLineNewsletter] = useState(false);
+  const [finishLineWebsite, setFinishLineWebsite] = useState("");
+  const [finishLineStartedAt, setFinishLineStartedAt] = useState(() =>
+    String(Date.now())
+  );
   const [finishLineUniversity, setFinishLineUniversity] = useState("");
   const [finishLineCourse, setFinishLineCourse] = useState("");
   const [finishLineSubject, setFinishLineSubject] = useState("");
@@ -62,6 +68,10 @@ export default function StudentenPage() {
         },
         body: JSON.stringify({
           name: finishLineName,
+          email: finishLineEmail,
+          newsletter: finishLineNewsletter,
+          website: finishLineWebsite,
+          startedAt: finishLineStartedAt,
           university: finishLineUniversity,
           course: finishLineCourse,
           subject: finishLineSubject,
@@ -75,6 +85,10 @@ export default function StudentenPage() {
 
       setFinishLineStatus("success");
       setFinishLineName("");
+      setFinishLineEmail("");
+      setFinishLineNewsletter(false);
+      setFinishLineWebsite("");
+      setFinishLineStartedAt(String(Date.now()));
       setFinishLineUniversity("");
       setFinishLineCourse("");
       setFinishLineSubject("");
@@ -283,8 +297,31 @@ export default function StudentenPage() {
             ist.
           </p>
 
-          <form className="but-fields" onSubmit={handleFinishLineApplication}>
-            <label className="but-field">
+          <form
+            className="but-fields"
+            style={{ maxWidth: "720px", margin: "0 auto", textAlign: "left" }}
+            onSubmit={handleFinishLineApplication}
+          >
+            <label
+              aria-hidden="true"
+              style={{
+                position: "absolute",
+                left: "-9999px",
+                width: "1px",
+                height: "1px",
+                overflow: "hidden",
+              }}
+            >
+              Website
+              <input
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+                value={finishLineWebsite}
+                onChange={(event) => setFinishLineWebsite(event.target.value)}
+              />
+            </label>
+            <label className="but-field" style={{ maxWidth: "520px" }}>
               <span>Name</span>
               <input
                 type="text"
@@ -294,7 +331,17 @@ export default function StudentenPage() {
               />
             </label>
 
-            <label className="but-field">
+            <label className="but-field" style={{ maxWidth: "520px" }}>
+              <span>E-Mail-Adresse</span>
+              <input
+                type="email"
+                value={finishLineEmail}
+                onChange={(event) => setFinishLineEmail(event.target.value)}
+                required
+              />
+            </label>
+
+            <label className="but-field" style={{ maxWidth: "520px" }}>
               <span>Hochschule / Universität</span>
               <input
                 type="text"
@@ -306,7 +353,7 @@ export default function StudentenPage() {
               />
             </label>
 
-            <label className="but-field">
+            <label className="but-field" style={{ maxWidth: "520px" }}>
               <span>Studiengang</span>
               <input
                 type="text"
@@ -316,7 +363,7 @@ export default function StudentenPage() {
               />
             </label>
 
-            <label className="but-field">
+            <label className="but-field" style={{ maxWidth: "520px" }}>
               <span>Fach / Modul im Drittversuch</span>
               <input
                 type="text"
@@ -338,7 +385,36 @@ export default function StudentenPage() {
               />
             </label>
 
-            <div className="but-generator__actions">
+            <label
+              style={{
+                display: "flex",
+                alignItems: "flex-start",
+                gap: "12px",
+                maxWidth: "720px",
+                fontSize: "15px",
+                lineHeight: "1.6",
+                color: "#555",
+              }}
+            >
+              <input
+                type="checkbox"
+                checked={finishLineNewsletter}
+                onChange={(event) =>
+                  setFinishLineNewsletter(event.target.checked)
+                }
+                style={{ marginTop: "4px" }}
+              />
+              <span>
+                Ich möchte per E-Mail über kostenlose Studienmaterialien,
+                Lernhilfen und zukünftige Finish-Line-Bewerbungsrunden
+                informiert werden.
+              </span>
+            </label>
+
+            <div
+              className="but-generator__actions"
+              style={{ justifyContent: "flex-start" }}
+            >
               <button
                 type="submit"
                 className="btn btn-tertiary but-action-button"
@@ -382,7 +458,7 @@ export default function StudentenPage() {
             </a>
 
             <a
-              href="https://wa.me/4915256075324"
+              href="https://api.whatsapp.com/send?phone=4915256075324"
               className="btn btn-secondary-dark"
             >
               WhatsApp schreiben
@@ -418,7 +494,9 @@ export default function StudentenPage() {
         {contactOpen && (
           <div className="floating-contact__menu">
             <a href="tel:+4915256075324">📞 Anrufen</a>
-            <a href="https://wa.me/4915256075324">💬 WhatsApp</a>
+            <a href="https://api.whatsapp.com/send?phone=4915256075324">
+              💬 WhatsApp
+            </a>
             <a href="mailto:info@bildungswerkeuler.de">✉️ E-Mail</a>
           </div>
         )}

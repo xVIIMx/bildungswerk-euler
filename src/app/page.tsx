@@ -134,12 +134,12 @@ export default function Home() {
             </div>
 
             <div className="service-buttons">
-              <a href="/schueler" className="btn btn-primary">
+              <Link href="/schueler" className="btn btn-primary">
                 Schüler
-              </a>
-              <a href="/studenten" className="btn btn-primary">
+              </Link>
+              <Link href="/studenten" className="btn btn-primary">
                 Studenten
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -286,15 +286,15 @@ export default function Home() {
         <p>Bildungswerk Euler</p>
         <p>Nachhilfe · Ausbildungsprogramme · Kurse</p>
         <p className="footer__legal">
-          © 2026 Bildungswerk Euler · <a href="/impressum">Impressum</a> ·{" "}
-          <a href="/datenschutz">Datenschutz</a>
+          © 2026 Bildungswerk Euler · <Link href="/impressum">Impressum</Link> ·{" "}
+          <Link href="/datenschutz">Datenschutz</Link>
         </p>
       </footer>
 
       <div className="floating-contact" ref={contactRef}>
         <button
           className="floating-contact__button"
-          onClick={() => setContactOpen(!contactOpen)}
+          onClick={() => setContactOpen((prev) => !prev)}
         >
           Jetzt beraten lassen!
         </button>
