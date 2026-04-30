@@ -145,18 +145,17 @@ export default function Home() {
 
           <div className="service-card">
             <div className="service-card__body">
-              <h3>Qualifizierungsprogramme</h3>
+              <h3>Weiterbildung</h3>
               <p>
-                Praxisprogramme für Bewerber ohne Berufserfahrung. Reale
-                Projekte, trainierte Arbeitsprozesse und ein dokumentierter
-                Praxisnachweis.
+                Vorbereitung auf AEVO, Ausbilderschein, Fachwirt, Betriebswirt
+                und Meisterprüfung, strukturiert und prüfungsnah.
               </p>
             </div>
 
             <div className="service-buttons">
-              <button className="btn btn-disabled" disabled>
-                Startet in Kürze
-              </button>
+              <Link href="/weiterbildung" className="btn btn-primary">
+                Weiterbildung
+              </Link>
             </div>
           </div>
 
@@ -164,15 +163,15 @@ export default function Home() {
             <div className="service-card__body">
               <h3>Kurse</h3>
               <p>
-                Strukturierte Kursformate für Schulen, Unternehmen und
-                Privatpersonen zur gezielten Weiterbildung.
+                Praxisnahe Kurse für Unternehmen, öffentliche Projekte und
+                Privatpersonen, von Office bis Coding.
               </p>
             </div>
 
             <div className="service-buttons">
-              <button className="btn btn-disabled" disabled>
-                Startet in Kürze
-              </button>
+              <Link href="/kurse" className="btn btn-primary">
+                Kurse
+              </Link>
             </div>
           </div>
         </div>
