@@ -67,7 +67,9 @@ export default function KursePage() {
           <Link href="/but-check">BuT</Link>
           <Link href="/studenten">Studenten</Link>
           <Link href="/weiterbildung">Weiterbildung</Link>
-          <Link href="/kurse">Kurse</Link>
+          <Link href="/kurse" className="header__nav-active">
+            Kurse
+          </Link>
         </nav>
 
         <div
@@ -97,7 +99,11 @@ export default function KursePage() {
           <Link href="/weiterbildung" onClick={() => setOpen(false)}>
             Weiterbildung
           </Link>
-          <Link href="/kurse" onClick={() => setOpen(false)}>
+          <Link
+            href="/kurse"
+            className="header__nav-active"
+            onClick={() => setOpen(false)}
+          >
             Kurse
           </Link>
         </div>

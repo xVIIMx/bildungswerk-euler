@@ -200,7 +200,9 @@ export default function SchuelerPage() {
 
         <nav className="header__nav">
           <Link href="/">Bildungswerk Euler</Link>
-          <Link href="/schueler">Schüler</Link>
+          <Link href="/schueler" className="header__nav-active">
+            Schüler
+          </Link>
           <Link href="/but-check">BuT</Link>
           <Link href="/studenten">Studenten</Link>
           <Link href="/weiterbildung">Weiterbildung</Link>
@@ -216,7 +218,11 @@ export default function SchuelerPage() {
           <Link href="/" onClick={() => setOpen(false)}>
             Bildungswerk Euler
           </Link>
-          <Link href="/schueler" onClick={() => setOpen(false)}>
+          <Link
+            href="/schueler"
+            className="header__nav-active"
+            onClick={() => setOpen(false)}
+          >
             Schüler
           </Link>
           <Link href="/but-check" onClick={() => setOpen(false)}>

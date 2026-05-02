@@ -242,7 +242,9 @@ export default function ButCheckPage() {
         <nav className="header__nav">
           <Link href="/">Bildungswerk Euler</Link>
           <Link href="/schueler">Schüler</Link>
-          <Link href="/but-check">BuT</Link>
+          <Link href="/but-check" className="header__nav-active">
+            BuT
+          </Link>
           <Link href="/studenten">Studenten</Link>
           <Link href="/weiterbildung">Weiterbildung</Link>
           <Link href="/kurse">Kurse</Link>
@@ -266,7 +268,11 @@ export default function ButCheckPage() {
           <Link href="/schueler" onClick={() => setOpen(false)}>
             Schüler
           </Link>
-          <Link href="/but-check" onClick={() => setOpen(false)}>
+          <Link
+            href="/but-check"
+            className="header__nav-active"
+            onClick={() => setOpen(false)}
+          >
             BuT
           </Link>
           <Link href="/studenten" onClick={() => setOpen(false)}>

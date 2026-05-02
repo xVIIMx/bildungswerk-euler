@@ -54,7 +54,9 @@ export default function Home() {
         </Link>
 
         <nav className="header__nav">
-          <Link href="/">Bildungswerk Euler</Link>
+          <Link href="/" className="header__nav-active">
+            Bildungswerk Euler
+          </Link>
           <Link href="/schueler">Schüler</Link>
           <Link href="/but-check">BuT</Link>
           <Link href="/studenten">Studenten</Link>
@@ -73,7 +75,11 @@ export default function Home() {
       </header>
       {open && (
         <div className="mobile-menu" ref={mobileMenuRef}>
-          <Link href="/" onClick={() => setOpen(false)}>
+          <Link
+            href="/"
+            className="header__nav-active"
+            onClick={() => setOpen(false)}
+          >
             Bildungswerk Euler
           </Link>
           <Link href="/schueler" onClick={() => setOpen(false)}>

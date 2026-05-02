@@ -115,7 +115,9 @@ export default function StudentenPage() {
           <Link href="/">Bildungswerk Euler</Link>
           <Link href="/schueler">Schüler</Link>
           <Link href="/but-check">BuT</Link>
-          <Link href="/studenten">Studenten</Link>
+          <Link href="/studenten" className="header__nav-active">
+            Studenten
+          </Link>
           <Link href="/weiterbildung">Weiterbildung</Link>
           <Link href="/kurse">Kurse</Link>
         </nav>
@@ -135,7 +137,11 @@ export default function StudentenPage() {
           <Link href="/but-check" onClick={() => setOpen(false)}>
             BuT
           </Link>
-          <Link href="/studenten" onClick={() => setOpen(false)}>
+          <Link
+            href="/studenten"
+            className="header__nav-active"
+            onClick={() => setOpen(false)}
+          >
             Studenten
           </Link>
           <Link href="/weiterbildung" onClick={() => setOpen(false)}>
